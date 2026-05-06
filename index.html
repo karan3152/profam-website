@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profam — Home Services At Your Fingertips</title>
+  <meta name="description" content="Book trusted home service professionals in minutes. Cleaning, repairs, plumbing, electrical, beauty & more — Profam brings expert help to your doorstep." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --font-display: 'Cormorant Garamond', serif;
+      --font-body: 'Outfit', sans-serif;
+      --bg: #050a14;
+      --bg2: #080f1e;
+      --bg3: #0d1629;
+      --accent: #00c6ff;
+      --accent2: #0072ff;
+      --gold: #f59e0b;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --border: rgba(255,255,255,0.08);
+      --grad: linear-gradient(135deg, #00c6ff, #0072ff, #7c3aed);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font-body); overflow-x: hidden; }
+
+    /* Cursor */
+    .cursor { width: 12px; height: 12px; background: var(--accent); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 99999; mix-blend-mode: difference; transform: translate(-50%,-50%); transition: transform .1s; }
+    .cursor-follow { width: 36px; height: 36px; border: 1.5px solid rgba(0,198,255,.5); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 99998; transform: translate(-50%,-50%); transition: transform .3s cubic-bezier(.175,.885,.32,1.275); }
+    body { cursor: none; }
+    a, button { cursor: none; }
+
+    /* Scroll bar */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg2); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+    /* Grid bg */
+    .grid-bg { background-image: linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px), linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px); background-size: 60px 60px; }
+
+    /* Orbs */
+    .orb { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; }
+    .orb-blue { background: radial-gradient(circle,#00c6ff,#0072ff); }
+    .orb-purple { background: radial-gradient(circle,#7c3aed,#4f46e5); }
+    .orb-gold { background: radial-gradient(circle,#f59e0b,#ef4444); }
+    @keyframes float { 0%,100%{transform:translateY(0) scale(1)} 50%{transform:translateY(-24px) scale(1.04)} }
+    @keyframes float2 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-16px)} }
+
+    /* Glass */
+    .glass { background: rgba(255,255,255,.04); backdrop-filter: blur(20px); border: 1px solid var(--border); border-radius: 20px; }
+
+    /* Text gradient */
+    .gtext { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .gtext-gold { background: linear-gradient(135deg,#f59e0b,#fde68a,#f59e0b); background-size: 200%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: shimmer 3s linear infinite; }
+    @keyframes shimmer { 0%{background-position:0% center} 100%{background-position:200% center} }
+
+    /* Buttons */
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 32px; border-radius: 50px; font-family: var(--font-body); font-weight: 600; font-size: 15px; letter-spacing: .3px; border: none; cursor: none; text-decoration: none; transition: all .3s ease; }
+    .btn-primary { background: var(--grad); color: white; box-shadow: 0 8px 30px rgba(0,114,255,.4); }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(0,114,255,.6); }
+    .btn-outline { background: transparent; color: var(--accent); border: 1.5px solid rgba(0,198,255,.4); }
+    .btn-outline:hover { background: rgba(0,198,255,.1); border-color: var(--accent); transform: translateY(-3px); }
+
+    /* Badge */
+    .badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(0,198,255,.1); border: 1px solid rgba(0,198,255,.25); color: var(--accent); padding: 6px 16px; border-radius: 50px; font-size: 13px; font-weight: 500; letter-spacing: .3px; }
+
+    /* Nav */
+    #navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 18px 0; transition: all .4s ease; }
+    #navbar.scrolled { background: rgba(5,10,20,.88); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,.06); }
+    .nav-inner { max-width: 1280px; margin: 0 auto; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-icon { width: 40px; height: 40px; background: var(--grad); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 20px; font-weight: 800; color: white; box-shadow: 0 6px 20px rgba(0,114,255,.4); }
+    .logo-text { font-family: var(--font-display); font-size: 26px; font-weight: 700; color: white; letter-spacing: -.5px; }
+    .nav-links { display: flex; align-items: center; gap: 32px; }
+    .nav-links a { color: var(--muted); font-size: 14px; font-weight: 500; text-decoration: none; transition: color .3s; }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* Hero */
+    #hero { min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; padding-top: 100px; }
+    .hero-inner { max-width: 1280px; margin: 0 auto; padding: 0 40px; width: 100%; position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    h1 { font-family: var(--font-display); font-size: clamp(44px,6vw,78px); font-weight: 700; line-height: 1.07; letter-spacing: -1px; color: white; margin-bottom: 16px; }
+    .rotating-tag { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+    .tag-box { background: linear-gradient(135deg,rgba(0,198,255,.15),rgba(0,114,255,.1)); border: 1px solid rgba(0,198,255,.3); border-radius: 12px; padding: 6px 20px; min-width: 200px; text-align: center; overflow: hidden; height: 38px; position: relative; }
+    .tag-text { font-family: var(--font-display); font-size: 20px; font-weight: 600; color: var(--accent); animation: fadeUp .5s ease; }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+    .hero-desc { font-size: 17px; line-height: 1.8; color: var(--muted); margin-bottom: 40px; max-width: 480px; }
+    .hero-btns { display: flex; gap: 16px; margin-bottom: 56px; flex-wrap: wrap; }
+    .mini-stats { display: flex; gap: 40px; flex-wrap: wrap; }
+    .mini-stat-val { font-family: var(--font-display); font-size: 28px; font-weight: 700; color: white; line-height: 1; }
+    .mini-stat-label { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+    /* Phone mock */
+    .phone-wrap { display: flex; justify-content: center; position: relative; }
+    .phone-glow { position: absolute; width: 380px; height: 380px; background: radial-gradient(circle,rgba(0,114,255,.3),transparent 70%); border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%,-50%); animation: float 6s ease-in-out infinite; }
+    .phone-frame { width: 295px; height: 590px; background: linear-gradient(145deg,#1a2744,#0d1629); border: 2px solid rgba(255,255,255,.1); border-radius: 48px; padding: 12px; box-shadow: 0 40px 80px rgba(0,0,0,.6), 0 0 60px rgba(0,114,255,.15); animation: float 7s ease-in-out infinite; position: relative; transform: perspective(1000px) rotateY(-8deg) rotateX(4deg); }
+    .phone-notch { width: 100px; height: 24px; background: #050a14; border-radius: 0 0 16px 16px; margin: 0 auto 6px; }
+    .phone-screen { background: var(--bg2); border-radius: 36px; height: calc(100% - 36px); overflow: hidden; position: relative; }
+    .phone-header { padding: 10px 16px 6px; display: flex; justify-content: space-between; font-size: 11px; color: rgba(255,255,255,.5); }
+    .phone-content { padding: 12px 14px; }
+    .phone-greeting-sub { font-size: 11px; color: var(--muted); margin-bottom: 2px; }
+    .phone-greeting { font-size: 15px; font-weight: 700; color: white; margin-bottom: 14px; }
+    .phone-search { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.07); border-radius: 12px; padding: 9px 14px; display: flex; align-items: center; gap: 8px; margin-bottom: 18px; }
+    .phone-search span { font-size: 12px; color: var(--muted); }
+    .service-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; margin-bottom: 16px; }
+    .service-icon-btn { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.06); border-radius: 12px; padding: 10px 4px; text-align: center; }
+    .service-icon-btn div:first-child { font-size: 18px; margin-bottom: 3px; }
+    .service-icon-btn div:last-child { font-size: 9px; color: var(--muted); }
+    .phone-featured { background: linear-gradient(135deg,rgba(0,198,255,.15),rgba(0,114,255,.1)); border: 1px solid rgba(0,198,255,.25); border-radius: 14px; padding: 12px; display: flex; justify-content: space-between; align-items: center; }
+    .phone-feat-label { font-size: 10px; color: var(--accent); margin-bottom: 2px; }
+    .phone-feat-title { font-size: 13px; font-weight: 700; color: white; margin-bottom: 2px; }
+    .phone-feat-price { font-size: 11px; color: var(--muted); }
+    .phone-feat-btn { background: var(--grad); border-radius: 10px; padding: 8px 14px; font-size: 11px; font-weight: 700; color: white; }
+    .float-badge { position: absolute; background: rgba(5,10,20,.92); border-radius: 14px; padding: 11px 15px; backdrop-filter: blur(20px); display: flex; align-items: center; gap: 10px; }
+    .float-badge-title { font-size: 11px; color: white; font-weight: 600; }
+    .float-badge-sub { font-size: 10px; color: var(--muted); }
+
+    /* Section */
+    section { padding: 120px 0; position: relative; overflow: hidden; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
+    .section-header { text-align: center; margin-bottom: 72px; }
+    h2 { font-family: var(--font-display); font-size: clamp(36px,5vw,64px); font-weight: 700; color: white; line-height: 1.1; letter-spacing: -1px; margin-bottom: 20px; }
+    .section-sub { font-size: 17px; color: var(--muted); max-width: 540px; margin: 0 auto; line-height: 1.7; }
+
+    /* Services */
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(280px,1fr)); gap: 22px; }
+    .service-card { padding: 28px; border-radius: 20px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07); transition: all .4s cubic-bezier(.175,.885,.32,1.275); position: relative; overflow: hidden; cursor: none; }
+    .service-card:hover { transform: translateY(-10px) scale(1.02); }
+    .service-icon { width: 56px; height: 56px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 26px; margin-bottom: 18px; transition: all .3s; }
+    .service-card h3 { font-size: 19px; font-weight: 700; color: white; margin-bottom: 8px; }
+    .service-card p { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 18px; }
+    .service-footer { display: flex; justify-content: space-between; align-items: center; }
+    .service-price { font-weight: 700; font-size: 15px; }
+    .service-arrow { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; transition: transform .3s; }
+    .service-card:hover .service-arrow { transform: translateX(5px); }
+    .popular-tag { position: absolute; top: 14px; right: 14px; background: linear-gradient(135deg,#f59e0b,#ef4444); border-radius: 20px; padding: 3px 10px; font-size: 10px; font-weight: 700; color: white; text-transform: uppercase; letter-spacing: .5px; }
+
+    /* How it Works */
+    .steps-wrap { position: relative; display: flex; flex-direction: column; gap: 44px; }
+    .step-line { position: absolute; left: 27px; top: 28px; width: 3px; bottom: 28px; background: linear-gradient(180deg,#00c6ff,#0072ff,#7c3aed); border-radius: 2px; opacity: .35; }
+    .step-row { display: grid; grid-template-columns: 56px 1fr; gap: 28px; align-items: flex-start; }
+    .step-num { width: 56px; height: 56px; background: var(--grad); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 22px; font-weight: 700; color: white; flex-shrink: 0; box-shadow: 0 8px 20px rgba(0,114,255,.4); }
+    .step-card { padding: 30px 32px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07); border-radius: 20px; backdrop-filter: blur(20px); }
+    .step-tag { font-size: 10px; letter-spacing: 2px; color: var(--accent); font-weight: 600; text-transform: uppercase; margin-bottom: 6px; }
+    .step-card h3 { font-size: 21px; font-weight: 700; color: white; margin-bottom: 8px; }
+    .step-card p { font-size: 15px; color: var(--muted); line-height: 1.7; margin-bottom: 12px; }
+    .step-detail { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--accent); background: rgba(0,198,255,.08); padding: 4px 12px; border-radius: 20px; border: 1px solid rgba(0,198,255,.2); }
+
+    /* Stats */
+    .stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 40px; padding: 52px 48px; background: linear-gradient(135deg,rgba(0,198,255,.06),rgba(124,58,237,.06)); border: 1px solid rgba(255,255,255,.08); border-radius: 28px; margin-bottom: 80px; text-align: center; }
+    .stat-icon { font-size: 36px; margin-bottom: 8px; }
+    .stat-val { font-family: var(--font-display); font-size: clamp(42px,7vw,80px); font-weight: 700; line-height: 1; }
+    .stat-label { font-size: 14px; color: var(--muted); margin-top: 6px; }
+
+    /* Promise grid */
+    .promise-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(300px,1fr)); gap: 26px; }
+    .promise-card { padding: 32px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07); border-radius: 20px; transition: all .3s ease; }
+    .promise-card:hover { transform: translateY(-8px); border-color: rgba(0,198,255,.2); }
+    .promise-icon { width: 52px; height: 52px; background: rgba(0,198,255,.1); border: 1px solid rgba(0,198,255,.2); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 18px; }
+    .promise-card h3 { font-size: 18px; font-weight: 700; color: white; margin-bottom: 10px; }
+    .promise-card p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+    /* Testimonials */
+    .test-featured { background: linear-gradient(135deg,rgba(0,198,255,.06),rgba(124,58,237,.06)); border: 1px solid rgba(255,255,255,.1); border-radius: 28px; padding: 48px; margin-bottom: 36px; position: relative; overflow: hidden; }
+    .test-quote-mark { position: absolute; top: 10px; left: 36px; font-size: 120px; line-height: 1; color: rgba(0,198,255,.05); font-family: var(--font-display); }
+    .test-stars { color: #f59e0b; font-size: 22px; letter-spacing: 2px; margin-bottom: 16px; }
+    .test-text { font-family: var(--font-display); font-size: clamp(18px,2.4vw,26px); color: white; line-height: 1.6; font-style: italic; font-weight: 300; margin-bottom: 28px; position: relative; }
+    .test-author { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .test-avatar { width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; color: white; flex-shrink: 0; }
+    .test-name { font-size: 15px; font-weight: 700; color: white; }
+    .test-role { font-size: 13px; color: var(--muted); }
+    .test-service-tag { margin-left: auto; font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 20px; }
+    .test-dots { display: flex; justify-content: center; gap: 8px; margin-bottom: 44px; }
+    .test-dot { height: 8px; border-radius: 4px; border: none; transition: all .3s ease; cursor: none; }
+    .test-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(290px,1fr)); gap: 18px; }
+    .test-card { background: linear-gradient(135deg,rgba(0,198,255,.04),rgba(0,114,255,.02)); border: 1px solid rgba(0,198,255,.1); border-radius: 22px; padding: 28px; transition: all .3s; cursor: none; }
+    .test-card:hover { transform: translateY(-6px); border-color: rgba(0,198,255,.25); }
+    .test-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+    .test-card-name { font-size: 14px; font-weight: 700; color: white; }
+    .test-card-city { font-size: 11px; color: var(--muted); }
+    .test-card-stars { font-size: 12px; color: #f59e0b; }
+    .test-card-text { font-size: 13px; color: var(--muted); line-height: 1.65; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 10px; }
+    .test-card-service { font-size: 11px; font-weight: 600; }
+
+    /* Download */
+    #download { padding: 120px 0; position: relative; overflow: hidden; }
+    .download-card { background: linear-gradient(135deg,rgba(255,255,255,.06),rgba(255,255,255,.02)); border: 1px solid rgba(255,255,255,.12); border-radius: 40px; padding: clamp(48px,6vw,80px); text-align: center; backdrop-filter: blur(30px); position: relative; overflow: hidden; }
+    .download-card::before { content:''; position:absolute; top:0; left:20%; right:20%; height:2px; background:linear-gradient(90deg,transparent,rgba(0,198,255,.8),transparent); border-radius:2px; }
+    .download-card h2 { font-family: var(--font-display); font-size: clamp(38px,6vw,78px); font-weight: 700; color: white; line-height: 1.05; letter-spacing: -2px; margin-bottom: 18px; }
+    .download-card p { font-size: 17px; color: var(--muted); max-width: 520px; margin: 0 auto 44px; line-height: 1.7; }
+    .store-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 44px; }
+    .store-btn { display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); border-radius: 16px; padding: 12px 22px; color: white; text-decoration: none; transition: all .3s; }
+    .store-btn:hover { background: rgba(255,255,255,.12); transform: translateY(-3px); }
+    .store-btn svg { width: 28px; height: 28px; }
+    .store-btn-sub { font-size: 10px; color: rgba(255,255,255,.6); }
+    .store-btn-main { font-size: 18px; font-weight: 700; }
+    .social-proof { display: flex; justify-content: center; gap: 44px; flex-wrap: wrap; }
+    .sp-item { text-align: center; }
+    .sp-icon { font-size: 28px; margin-bottom: 4px; }
+    .sp-val { font-family: var(--font-display); font-size: 22px; font-weight: 700; color: white; }
+    .sp-label { font-size: 12px; color: var(--muted); }
+    .cta-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 40px; }
+    .cta-card { padding: 36px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07); border-radius: 24px; }
+    .cta-card h3 { font-size: 20px; font-weight: 700; color: white; margin: 12px 0 10px; }
+    .cta-card p { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 20px; }
+    .cta-features { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 22px; }
+    .cta-feat { font-size: 12px; color: var(--accent); }
+
+    /* Footer */
+    footer { background: var(--bg2); border-top: 1px solid rgba(255,255,255,.06); }
+    .footer-inner { max-width: 1280px; margin: 0 auto; padding: 72px 40px 32px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 44px; margin-bottom: 56px; }
+    .footer-brand p { font-size: 13px; color: var(--muted); line-height: 1.8; max-width: 240px; margin: 16px 0 20px; }
+    .social-links { display: flex; gap: 10px; }
+    .social-link { width: 36px; height: 36px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 13px; color: rgba(255,255,255,.6); text-decoration: none; font-weight: 600; transition: all .3s; }
+    .social-link:hover { background: rgba(0,198,255,.15); border-color: rgba(0,198,255,.3); color: var(--accent); }
+    .footer-col h4 { font-size: 12px; font-weight: 700; color: white; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 18px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+    .footer-col a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color .2s; }
+    .footer-col a:hover { color: var(--accent); }
+    .newsletter { background: linear-gradient(135deg,rgba(0,198,255,.08),rgba(0,114,255,.06)); border: 1px solid rgba(0,198,255,.15); border-radius: 20px; padding: 28px 36px; display: flex; justify-content: space-between; align-items: center; gap: 28px; flex-wrap: wrap; margin-bottom: 40px; }
+    .newsletter h4 { font-size: 17px; font-weight: 700; color: white; margin-bottom: 4px; }
+    .newsletter p { font-size: 13px; color: var(--muted); }
+    .nl-form { display: flex; }
+    .nl-input { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); border-right: none; border-radius: 50px 0 0 50px; padding: 11px 20px; font-size: 14px; color: white; outline: none; width: 220px; font-family: var(--font-body); }
+    .nl-input::placeholder { color: var(--muted); }
+    .nl-btn { background: var(--grad); color: white; border: none; border-radius: 0 50px 50px 0; padding: 11px 22px; font-size: 14px; font-weight: 600; cursor: none; font-family: var(--font-body); white-space: nowrap; }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,.06); }
+    .footer-bottom p, .footer-bottom a { font-size: 13px; color: var(--muted); text-decoration: none; }
+
+    /* Divider */
+    .divider { height: 1px; background: linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent); }
+
+    /* Animations */
+    .fade-in { opacity: 0; transform: translateY(36px); transition: all .7s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    .fade-left { opacity: 0; transform: translateX(-36px); transition: all .7s ease; }
+    .fade-left.visible { opacity: 1; transform: translateX(0); }
+    .delay-1 { transition-delay: .1s; }
+    .delay-2 { transition-delay: .2s; }
+    .delay-3 { transition-delay: .3s; }
+    .delay-4 { transition-delay: .4s; }
+    .delay-5 { transition-delay: .5s; }
+    .delay-6 { transition-delay: .6s; }
+    .delay-7 { transition-delay: .7s; }
+    .delay-8 { transition-delay: .8s; }
+
+    /* App showcase */
+    .showcase-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .screen-tabs { display: flex; flex-direction: column; gap: 14px; }
+    .screen-tab { padding: 18px 22px; border-radius: 16px; border: 1px solid rgba(255,255,255,.06); background: rgba(255,255,255,.02); cursor: none; transition: all .3s ease; }
+    .screen-tab.active { border-color: rgba(0,198,255,.35); background: rgba(0,198,255,.08); }
+    .screen-tab-label { font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+    .screen-tab h3 { font-size: 16px; font-weight: 700; color: white; margin-bottom: 4px; }
+    .screen-tab p { font-size: 13px; color: var(--muted); line-height: 1.5; display: none; }
+    .screen-tab.active p { display: block; }
+    .dot-indicator { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 10px; flex-shrink: 0; }
+
+    /* CTA strip */
+    .cta-strip { background: linear-gradient(135deg,rgba(0,198,255,.08),rgba(124,58,237,.08)); border: 1px solid rgba(255,255,255,.08); border-radius: 28px; padding: 48px; text-align: center; margin-top: 60px; }
+    .cta-strip h3 { font-family: var(--font-display); font-size: clamp(22px,3vw,36px); color: white; margin-bottom: 10px; }
+    .cta-strip p { color: var(--muted); margin-bottom: 28px; }
+
+    /* Responsive */
+    @media(max-width:1024px){
+      .footer-grid{grid-template-columns:1fr 1fr 1fr}
+      .footer-grid>div:first-child{grid-column:1/-1}
+      .stats-row{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:900px){
+      .hero-inner{grid-template-columns:1fr}
+      .phone-wrap{display:none}
+      .showcase-grid{grid-template-columns:1fr}
+      .cta-cards{grid-template-columns:1fr}
+    }
+    @media(max-width:768px){
+      section{padding:80px 0}
+      .nav-links{display:none}
+      h1{font-size:clamp(38px,8vw,60px)}
+      h2{font-size:clamp(30px,6vw,48px)}
+      .footer-grid{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:480px){
+      .container{padding:0 20px}
+      .stats-row{grid-template-columns:1fr 1fr;padding:32px 24px}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-follow" id="cursorFollow"></div>
+
+  <!-- Navbar -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="#" class="logo">
+        <div class="logo-icon">P</div>
+        <span class="logo-text">Profam</span>
+      </a>
+      <div class="nav-links">
+        <a href="#services">Services</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#promise">Our Promise</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="#download">Download</a>
+      </div>
+      <a href="#download" class="btn btn-primary" style="padding:10px 24px;font-size:14px">Download App</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section id="hero">
+    <div class="orb orb-blue" style="width:600px;height:600px;top:-200px;right:-100px;opacity:.12;animation:float 8s ease-in-out infinite"></div>
+    <div class="orb orb-purple" style="width:500px;height:500px;bottom:-150px;left:-150px;opacity:.1;animation:float 10s ease-in-out 2s infinite"></div>
+    <div class="orb orb-gold" style="width:300px;height:300px;top:50%;left:50%;transform:translate(-50%,-50%);opacity:.06;animation:float 12s ease-in-out 4s infinite"></div>
+    <div class="grid-bg" style="position:absolute;inset:0;pointer-events:none"></div>
+
+    <div class="hero-inner">
+      <!-- Left -->
+      <div class="fade-in visible">
+        <div class="badge" style="margin-bottom:28px">
+          <span style="width:8px;height:8px;border-radius:50%;background:#00ff88;display:inline-block;box-shadow:0 0 8px #00ff88"></span>
+          Now Available in Your City
+        </div>
+        <h1>Your Home,<br><span class="gtext">Perfectly</span><br>Cared For</h1>
+
+        <div class="rotating-tag">
+          <span style="color:var(--muted);font-family:var(--font-display);font-size:20px">Expert</span>
+          <div class="tag-box"><span class="tag-text" id="rotatingService">Home Cleaning</span></div>
+          <span style="color:var(--muted);font-family:var(--font-display);font-size:20px">at your door</span>
+        </div>
+
+        <p class="hero-desc">Profam connects you with verified, background-checked professionals for every home service need. Book in seconds, get it done right — every time.</p>
+
+        <div class="hero-btns">
+          <a href="#download" class="btn btn-primary">Book a Service →</a>
+          <a href="#how-it-works" class="btn btn-outline">See How It Works ↓</a>
+        </div>
+
+        <div class="mini-stats">
+          <div><div class="mini-stat-val">50K+</div><div class="mini-stat-label">Happy Customers</div></div>
+          <div><div class="mini-stat-val">2K+</div><div class="mini-stat-label">Verified Pros</div></div>
+          <div><div class="mini-stat-val">4.9★</div><div class="mini-stat-label">Average Rating</div></div>
+        </div>
+      </div>
+
+      <!-- Phone -->
+      <div class="phone-wrap">
+        <div class="phone-glow"></div>
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <div class="phone-header"><span>9:41</span><span>●●● 🔋</span></div>
+            <div class="phone-content">
+              <div class="phone-greeting-sub">Good morning,</div>
+              <div class="phone-greeting">What do you need? 👋</div>
+              <div class="phone-search">
+                <span>🔍</span><span>Search services...</span>
+              </div>
+              <div class="service-grid">
+                <div class="service-icon-btn"><div>🧹</div><div>Clean</div></div>
+                <div class="service-icon-btn"><div>🔧</div><div>Repair</div></div>
+                <div class="service-icon-btn"><div>⚡</div><div>Electr.</div></div>
+                <div class="service-icon-btn"><div>🚿</div><div>Plumb</div></div>
+                <div class="service-icon-btn"><div>❄️</div><div>AC</div></div>
+                <div class="service-icon-btn"><div>💆</div><div>Spa</div></div>
+                <div class="service-icon-btn"><div>🔨</div><div>Carpntr</div></div>
+                <div class="service-icon-btn"><div>🐛</div><div>Pest</div></div>
+              </div>
+              <div class="phone-featured">
+                <div>
+                  <div class="phone-feat-label">⭐ Top Pick</div>
+                  <div class="phone-feat-title">Deep Home Cleaning</div>
+                  <div class="phone-feat-price">Starting ₹599</div>
+                </div>
+                <div class="phone-feat-btn">Book</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Badges -->
+        <div class="float-badge" style="top:70px;right:-20px;border:1px solid rgba(0,255,136,.3);animation:float2 5s ease-in-out 1s infinite">
+          <span style="font-size:20px">✅</span>
+          <div><div class="float-badge-title">Booking Confirmed</div><div class="float-badge-sub">Pro arriving in 45 min</div></div>
+        </div>
+        <div class="float-badge" style="bottom:90px;left:-25px;border:1px solid rgba(245,158,11,.3);animation:float2 6s ease-in-out 2s infinite">
+          <span style="font-size:20px">⭐</span>
+          <div><div class="float-badge-title">Rated 4.9/5</div><div class="float-badge-sub">50,000+ Reviews</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div style="position:absolute;bottom:36px;left:50%;transform:translateX(-50%);text-align:center;animation:float2 2s ease-in-out infinite">
+      <div style="font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px">Scroll</div>
+      <svg width="22" height="22" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="2"><path d="M11 4v14M4 11l7 7 7-7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Services -->
+  <section id="services">
+    <div class="orb orb-blue" style="width:500px;height:500px;top:-80px;right:-100px;opacity:.07;animation:float 9s ease-in-out infinite"></div>
+    <div class="container">
+      <div class="section-header">
+        <div class="badge" style="margin-bottom:20px">🏠 Our Services</div>
+        <h2>Everything Your Home <span class="gtext">Needs</span></h2>
+        <p class="section-sub">From deep cleaning to electrical work, our verified professionals handle it all — so you don't have to worry.</p>
+      </div>
+      <div class="services-grid" id="servicesGrid"></div>
+      <div style="text-align:center;margin-top:44px">
+        <a href="#download" class="btn btn-outline">View All 50+ Services →</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- How It Works -->
+  <section id="how-it-works">
+    <div class="orb orb-purple" style="width:600px;height:600px;bottom:-200px;left:-200px;opacity:.06;animation:float 11s ease-in-out 3s infinite"></div>
+    <div class="container">
+      <div class="section-header">
+        <div class="badge" style="margin-bottom:20px">⚡ Simple Process</div>
+        <h2>Book in <span class="gtext">5 Easy Steps</span></h2>
+        <p class="section-sub">We've made the experience beautifully simple. From tap to doorstep in minutes.</p>
+      </div>
+      <div class="steps-wrap">
+        <div class="step-line"></div>
+        <div id="stepsContainer"></div>
+      </div>
+      <div class="cta-strip fade-in">
+        <h3>Ready to experience the <span class="gtext">Profam difference?</span></h3>
+        <p>Your first booking comes with a satisfaction guarantee.</p>
+        <a href="#download" class="btn btn-primary">Get Started Free →</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Why Choose Us -->
+  <section id="promise">
+    <div class="container">
+      <!-- Stats -->
+      <div class="stats-row fade-in" id="statsRow">
+        <div><div class="stat-icon">😊</div><div class="stat-val gtext" id="stat1">0</div><div class="stat-label">Happy Customers</div></div>
+        <div><div class="stat-icon">👨‍🔧</div><div class="stat-val gtext" id="stat2">0</div><div class="stat-label">Verified Professionals</div></div>
+        <div><div class="stat-icon">🛠️</div><div class="stat-val gtext" id="stat3">0</div><div class="stat-label">Service Categories</div></div>
+        <div><div class="stat-icon">⭐</div><div class="stat-val gtext" id="stat4">0</div><div class="stat-label">Average App Rating</div></div>
+      </div>
+      <div class="section-header">
+        <div class="badge" style="margin-bottom:20px">🤝 Our Promise</div>
+        <h2>Why Thousands Choose <span class="gtext">Profam</span></h2>
+        <p class="section-sub">We've built our entire platform around trust, quality, and your peace of mind.</p>
+      </div>
+      <div class="promise-grid" id="promiseGrid"></div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- App Showcase -->
+  <section>
+    <div class="orb orb-blue" style="width:400px;height:400px;top:0;right:-80px;opacity:.08;animation:float 8s ease-in-out infinite"></div>
+    <div class="container">
+      <div class="showcase-grid">
+        <!-- Phone left -->
+        <div class="phone-wrap fade-left" style="min-height:600px">
+          <div class="phone-glow" id="showcaseGlow" style="background:radial-gradient(circle,rgba(0,198,255,.25),transparent 70%)"></div>
+          <div class="phone-frame" id="showcasePhone">
+            <div class="phone-notch"></div>
+            <div class="phone-screen" id="showcaseScreen">
+              <div class="phone-header"><span style="font-family:var(--font-display);font-size:13px;font-weight:700;color:white">Profam</span><span style="font-size:12px">🔔</span></div>
+              <div id="showcaseContent" style="padding:10px 14px"></div>
+              <!-- Bottom Nav -->
+              <div style="position:absolute;bottom:0;left:0;right:0;background:rgba(5,10,20,.92);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,.06);padding:10px 20px;display:flex;justify-content:space-around">
+                <div style="text-align:center;font-size:22px">🏠<div style="width:4px;height:4px;background:var(--accent);border-radius:50%;margin:2px auto 0"></div></div>
+                <div style="text-align:center;font-size:18px;opacity:.4">🔍</div>
+                <div style="text-align:center;font-size:18px;opacity:.4">📋</div>
+                <div style="text-align:center;font-size:18px;opacity:.4">👤</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Right info -->
+        <div class="fade-in">
+          <div class="badge" style="margin-bottom:20px">📱 The Profam App</div>
+          <h2>An App Built For <span class="gtext">Your Life</span></h2>
+          <p style="font-size:16px;color:var(--muted);line-height:1.7;margin-bottom:36px">Every screen of the Profam app is crafted to make home services the simplest thing you do today.</p>
+          <div class="screen-tabs" id="screenTabs"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Testimonials -->
+  <section id="testimonials">
+    <div class="orb orb-gold" style="width:400px;height:400px;top:-80px;left:-80px;opacity:.06;animation:float 9s ease-in-out infinite"></div>
+    <div class="container">
+      <div class="section-header">
+        <div class="badge" style="margin-bottom:20px">💬 Real Reviews</div>
+        <h2>50,000+ Happy <span class="gtext">Homes</span></h2>
+        <p class="section-sub">Don't just take our word for it. Here's what real Profam customers say.</p>
+      </div>
+      <!-- Featured -->
+      <div class="test-featured fade-in">
+        <div class="test-quote-mark">"</div>
+        <div class="test-stars">★★★★★</div>
+        <div class="test-text" id="featuredText">"..."</div>
+        <div class="test-author">
+          <div class="test-avatar" id="featuredAvatar"></div>
+          <div>
+            <div class="test-name" id="featuredName"></div>
+            <div class="test-role" id="featuredRole"></div>
+          </div>
+          <div class="test-service-tag" id="featuredServiceTag"></div>
+        </div>
+      </div>
+      <div class="test-dots" id="testDots"></div>
+      <div class="test-grid" id="testGrid"></div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Download -->
+  <section id="download">
+    <div class="orb orb-blue" style="width:600px;height:600px;top:-200px;right:-100px;opacity:.14;animation:float 9s ease-in-out infinite"></div>
+    <div class="orb orb-purple" style="width:500px;height:500px;bottom:-200px;left:-100px;opacity:.12;animation:float 11s ease-in-out 2s infinite"></div>
+    <div class="grid-bg" style="position:absolute;inset:0;pointer-events:none"></div>
+    <div class="container" style="position:relative;z-index:2">
+      <div class="download-card fade-in">
+        <div class="badge" style="margin-bottom:22px;justify-content:center">🚀 Download Now</div>
+        <h2>Transform How You <span class="gtext">Care For</span><br>Your Home</h2>
+        <p>Join 50,000+ homeowners who have discovered a smarter, easier way to maintain their homes with Profam.</p>
+        <div class="store-btns">
+          <a href="#" class="store-btn">
+            <svg viewBox="0 0 24 24" fill="white"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+            <div><div class="store-btn-sub">Download on the</div><div class="store-btn-main">App Store</div></div>
+          </a>
+          <a href="#" class="store-btn">
+            <svg viewBox="0 0 24 24" fill="white"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199 1.852a1 1 0 010 1.732l-2.302 1.329-2.549-2.549 2.549-2.549 2.302 1.037zM5.864 2.658L16.8 8.99l-2.302 2.302-8.635-8.635z"/></svg>
+            <div><div class="store-btn-sub">Get it on</div><div class="store-btn-main">Google Play</div></div>
+          </a>
+        </div>
+        <div class="social-proof">
+          <div class="sp-item"><div class="sp-icon">⭐</div><div class="sp-val">4.9/5</div><div class="sp-label">App Rating</div></div>
+          <div class="sp-item"><div class="sp-icon">👥</div><div class="sp-val">50K+</div><div class="sp-label">Downloads</div></div>
+          <div class="sp-item"><div class="sp-icon">🏅</div><div class="sp-val">#1</div><div class="sp-label">Home Services</div></div>
+        </div>
+      </div>
+
+      <div class="cta-cards">
+        <div class="cta-card fade-in delay-3">
+          <div style="font-size:36px">👨‍🔧</div>
+          <h3>Are You a Service Professional?</h3>
+          <p>Join thousands of professionals earning more with Profam. Set your own schedule, get paid on time, and grow your client base.</p>
+          <div class="cta-features">
+            <span class="cta-feat">✓ Flexible hours</span>
+            <span class="cta-feat">✓ Guaranteed pay</span>
+            <span class="cta-feat">✓ Free training</span>
+          </div>
+          <a href="#" class="btn btn-outline">Join as a Pro →</a>
+        </div>
+        <div class="cta-card fade-in delay-4">
+          <div style="font-size:36px">🏢</div>
+          <h3>Corporate & Housing Society Plans</h3>
+          <p>Special plans for housing societies, apartment complexes, and corporates. Get dedicated account managers and bulk booking discounts.</p>
+          <div class="cta-features">
+            <span class="cta-feat" style="color:#f59e0b">✓ Custom pricing</span>
+            <span class="cta-feat" style="color:#f59e0b">✓ Priority support</span>
+            <span class="cta-feat" style="color:#f59e0b">✓ Bulk discounts</span>
+          </div>
+          <a href="#" class="btn btn-outline" style="border-color:rgba(245,158,11,.4);color:#f59e0b">Get in Touch →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo">
+            <div class="logo-icon" style="width:44px;height:44px;border-radius:14px;font-size:20px">P</div>
+            <span class="logo-text" style="font-size:28px">Profam</span>
+          </div>
+          <p>India's most trusted home services platform. Connecting you with verified professionals for a better home life.</p>
+          <div class="social-links">
+            <a href="#" class="social-link">𝕏</a>
+            <a href="#" class="social-link">in</a>
+            <a href="#" class="social-link">f</a>
+            <a href="#" class="social-link">▶</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="#">Home Cleaning</a></li>
+            <li><a href="#">Plumbing</a></li>
+            <li><a href="#">Electrical</a></li>
+            <li><a href="#">AC Services</a></li>
+            <li><a href="#">Beauty & Spa</a></li>
+            <li><a href="#">Pest Control</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">About Profam</a></li>
+            <li><a href="#">How It Works</a></li>
+            <li><a href="#">Our Promise</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Press</a></li>
+            <li><a href="#">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">Safety</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Refund Policy</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Cities</h4>
+          <ul>
+            <li><a href="#">Mumbai</a></li>
+            <li><a href="#">Delhi</a></li>
+            <li><a href="#">Bangalore</a></li>
+            <li><a href="#">Hyderabad</a></li>
+            <li><a href="#">Chennai</a></li>
+            <li><a href="#">Pune</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="newsletter">
+        <div>
+          <h4>Get exclusive offers & updates 🎁</h4>
+          <p>Join 50K+ subscribers for tips, offers and new service alerts.</p>
+        </div>
+        <div class="nl-form">
+          <input type="email" class="nl-input" placeholder="Enter your email" />
+          <button class="nl-btn">Subscribe</button>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Profam Technologies Pvt. Ltd. All rights reserved.</p>
+        <div style="display:flex;gap:20px">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Cookies</a>
+        </div>
+        <p>Made with ❤️ in India</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // -- DATA --
+    const SERVICES = [
+      { icon:'🧹', title:'Home Cleaning', desc:'Thorough deep cleaning by trained professionals using eco-friendly products.', price:'From ₹399', color:'#00c6ff', popular:true },
+      { icon:'🔧', title:'Appliance Repair', desc:'Quick fixes for all household appliances — washing machines, refrigerators, microwaves.', price:'From ₹299', color:'#7c3aed', popular:false },
+      { icon:'⚡', title:'Electrical', desc:'Certified electricians for wiring, switchboards, fans, lights & safety checks.', price:'From ₹249', color:'#f59e0b', popular:false },
+      { icon:'🚿', title:'Plumbing', desc:'Expert plumbers for leaks, pipe fitting, bathroom installations & more.', price:'From ₹199', color:'#10b981', popular:false },
+      { icon:'❄️', title:'AC Services', desc:'AC installation, servicing, gas refilling & repair by certified technicians.', price:'From ₹349', color:'#06b6d4', popular:true },
+      { icon:'💆', title:'Beauty & Spa', desc:'Salon-grade beauty treatments at home — facials, haircuts, massages & more.', price:'From ₹499', color:'#ec4899', popular:false },
+      { icon:'🔨', title:'Carpentry', desc:'Furniture assembly, custom woodwork, door/window repair & installations.', price:'From ₹299', color:'#f97316', popular:false },
+      { icon:'🐛', title:'Pest Control', desc:'Safe & effective pest elimination for cockroaches, mosquitoes, rats & more.', price:'From ₹599', color:'#84cc16', popular:false },
+      { icon:'🎨', title:'Painting', desc:'Interior & exterior painting with premium paints and expert finishers.', price:'From ₹8/sqft', color:'#a855f7', popular:false },
+    ];
+
+    const STEPS = [
+      { n:'01', title:'Download & Sign Up', desc:'Get the Profam app on iOS or Android. Create your account in under 60 seconds — just your name, phone, and location.', icon:'📱', detail:'Available on App Store & Google Play' },
+      { n:'02', title:'Choose Your Service', desc:'Browse 50+ home services. Filter by category, read detailed descriptions, and see transparent upfront pricing — no surprises.', icon:'🎯', detail:'50+ services available' },
+      { n:'03', title:'Pick a Time Slot', desc:'Schedule at your convenience — same-day, next-day, or up to 30 days ahead. We work 7 days a week, 7am–10pm.', icon:'📅', detail:'Available 7 days a week' },
+      { n:'04', title:'Pro Arrives & Works', desc:'Your verified professional arrives on time with all tools needed. Track them live on the map as they approach.', icon:'🚀', detail:'Live GPS tracking' },
+      { n:'05', title:'Pay & Rate', desc:'Pay securely via UPI, card, or wallet after the job is done. Rate your experience to help our quality control.', icon:'⭐', detail:'100% secure payments' },
+    ];
+
+    const PROMISES = [
+      { icon:'🛡️', title:'Background Verified', desc:'Every Profam professional undergoes thorough background checks, identity verification, and skill assessments before being onboarded.' },
+      { icon:'💰', title:'Transparent Pricing', desc:'See the exact price before booking. No hidden charges, no last-minute surprises. What you see is what you pay.' },
+      { icon:'✅', title:'Satisfaction Guarantee', desc:'Not happy? We\'ll send another professional for free or give you a full refund. Your satisfaction is our commitment.' },
+      { icon:'⚡', title:'On-Time, Every Time', desc:'Our professionals are trained to arrive within the scheduled window. Real-time tracking ensures you\'re always in the know.' },
+      { icon:'🔒', title:'Secure Payments', desc:'Pay only after the job is done, using our encrypted payment gateway. Your financial data is always protected.' },
+      { icon:'📞', title:'24/7 Support', desc:'Our customer support team is available round the clock via chat, call, or email to resolve any concern immediately.' },
+    ];
+
+    const TESTIMONIALS = [
+      { name:'Priya Sharma', city:'Mumbai', role:'Working Professional', avatar:'PS', service:'Home Cleaning', color:'#00c6ff', text:"Profam has literally changed my life. I work long hours and coming home to a clean apartment used to stress me out. Now I book a cleaning every Sunday night and it's ready Monday morning. The cleaner Meena is absolutely thorough and friendly." },
+      { name:'Arjun Mehta', city:'Delhi', role:'Software Engineer', avatar:'AM', service:'Electrical Repair', color:'#f59e0b', text:"Called an electrician at 9 PM for a power socket that stopped working. The Profam electrician arrived within 40 minutes, diagnosed and fixed the issue in 20 minutes. Clean work, transparent billing. Absolutely recommended." },
+      { name:'Kavitha Nair', city:'Bangalore', role:'Homemaker', avatar:'KN', service:'Beauty & Spa', color:'#ec4899', text:"I booked the home salon service for my mother's birthday and the beautician was so professional and warm. Full facial, hair spa, and pedicure — all at home. My mother was thrilled! The quality was better than actual salons." },
+      { name:'Rohit Singhania', city:'Pune', role:'Business Owner', avatar:'RS', service:'AC Service', color:'#06b6d4', text:"My AC broke down in peak summer. Profam had a technician at my place within 2 hours. He serviced the unit, recharged the gas, and gave me a detailed report of the AC's health. Professional, on-time, and worth every rupee." },
+      { name:'Sunita Gupta', city:'Hyderabad', role:'Teacher', avatar:'SG', service:'Pest Control', color:'#84cc16', text:"We had a cockroach problem for months. Profam sent a certified pest control team who treated the entire house with pet-safe products. It's been 3 months and not a single cockroach. Worth every penny!" },
+      { name:'Deepak Verma', city:'Chennai', role:'Doctor', avatar:'DV', service:'Plumbing', color:'#10b981', text:"The plumber fixed our kitchen pipe leak in under 30 minutes with zero mess. He even pointed out a potential issue with the bathroom pipes that could have become a problem later. Proactive and skilled." },
+    ];
+
+    const SCREENS = [
+      { label:'Home Screen', title:'Smart Home Dashboard', desc:'Your personalized hub showing upcoming bookings, recommendations & savings.', color:'#00c6ff',
+        html:`<div style="margin-bottom:12px"><p style="font-size:11px;color:rgba(255,255,255,.5);margin-bottom:2px">Welcome back!</p><p style="font-size:15px;font-weight:700;color:white">Good Morning, Rahul 👋</p></div><div style="background:linear-gradient(135deg,rgba(0,198,255,.2),rgba(0,114,255,.15));border:1px solid rgba(0,198,255,.3);border-radius:14px;padding:12px;margin-bottom:14px"><div style="font-size:10px;color:#00c6ff;margin-bottom:3px">⚡ UPCOMING</div><div style="font-size:13px;font-weight:700;color:white;margin-bottom:2px">Deep Cleaning - Today, 3 PM</div><div style="font-size:11px;color:rgba(255,255,255,.5);margin-bottom:8px">Priya S. is on the way • ⭐ 4.9</div><div style="display:flex;gap:8px"><div style="background:#00c6ff;border-radius:8px;padding:5px 10px;font-size:10px;color:white;font-weight:600">Track Live 📍</div><div style="background:rgba(255,255,255,.1);border-radius:8px;padding:5px 10px;font-size:10px;color:white">Call Pro</div></div></div><div style="font-size:11px;font-weight:600;color:white;margin-bottom:8px">Popular Near You</div><div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:9px 11px;margin-bottom:7px;font-size:11px;color:rgba(255,255,255,.7)">🧹 Home Cleaning • ₹399</div><div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:9px 11px;margin-bottom:7px;font-size:11px;color:rgba(255,255,255,.7)">⚡ Electrician • ₹249</div><div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:9px 11px;font-size:11px;color:rgba(255,255,255,.7)">❄️ AC Service • ₹349</div>` },
+      { label:'Live Map', title:'Live Tracking', desc:'Watch your professional travel to you in real-time with precise GPS tracking.', color:'#10b981',
+        html:`<div style="font-size:12px;font-weight:700;color:white;margin-bottom:12px">Live Tracking 📍</div><div style="background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25);border-radius:14px;height:160px;position:relative;overflow:hidden;margin-bottom:12px"><div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:22px 22px"></div><div style="position:absolute;bottom:28px;left:38px;width:14px;height:14px;background:#10b981;border-radius:50%;box-shadow:0 0 12px rgba(16,185,129,.8)"></div><div style="position:absolute;top:22px;right:34px;width:10px;height:10px;background:#00c6ff;border-radius:50%"></div><div style="position:absolute;bottom:14px;left:50%;transform:translateX(-50%);font-size:10px;color:rgba(255,255,255,.5)">📍 Your home</div></div><div style="background:rgba(255,255,255,.05);border-radius:12px;padding:12px;display:flex;justify-content:space-between;align-items:center"><div><div style="font-size:11px;color:rgba(255,255,255,.5)">Priya S. is</div><div style="font-size:16px;font-weight:700;color:#10b981">8 min away</div></div><div style="background:linear-gradient(135deg,#10b981,#059669);border-radius:10px;padding:8px 12px;font-size:11px;color:white;font-weight:600">Call Now</div></div>` },
+      { label:'Payment', title:'Easy Payments', desc:'Pay securely with UPI, cards, or Profam wallet. Split, save, and earn cashback.', color:'#a855f7',
+        html:`<div style="font-size:12px;font-weight:700;color:white;margin-bottom:14px">Payment Summary 💳</div><div style="background:rgba(168,85,247,.1);border:1px solid rgba(168,85,247,.25);border-radius:14px;padding:14px;margin-bottom:12px"><div style="display:flex;justify-content:space-between;margin-bottom:7px"><span style="font-size:12px;color:rgba(255,255,255,.6)">Deep Cleaning (2BHK)</span><span style="font-size:12px;color:white">₹599</span></div><div style="display:flex;justify-content:space-between;margin-bottom:7px"><span style="font-size:12px;color:rgba(255,255,255,.6)">First Booking Discount</span><span style="font-size:12px;color:#10b981">-₹100</span></div><div style="height:1px;background:rgba(255,255,255,.08);margin:10px 0"></div><div style="display:flex;justify-content:space-between"><span style="font-size:13px;font-weight:700;color:white">Total</span><span style="font-size:16px;font-weight:700;color:#a855f7">₹499</span></div></div><div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:9px 11px;margin-bottom:7px;font-size:11px;color:rgba(255,255,255,.7)">🏦 Pay via UPI</div><div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:9px 11px;margin-bottom:7px;font-size:11px;color:rgba(255,255,255,.7)">💳 Credit/Debit Card</div><div style="background:rgba(168,85,247,.15);border:1px solid rgba(168,85,247,.4);border-radius:10px;padding:9px 11px;margin-bottom:10px;font-size:11px;color:#a855f7;font-weight:600">👛 Profam Wallet (₹200)</div><div style="background:linear-gradient(135deg,#a855f7,#7c3aed);border-radius:12px;padding:12px;text-align:center;font-size:13px;font-weight:700;color:white">Pay Securely 🔒</div>` },
+    ];
+
+    // -- RENDER SERVICES --
+    const sg = document.getElementById('servicesGrid');
+    SERVICES.forEach(s => {
+      sg.innerHTML += `<div class="service-card" onmouseenter="this.style.borderColor='${s.color}44'" onmouseleave="this.style.borderColor='rgba(255,255,255,.07)'">
+        ${s.popular ? '<div class="popular-tag">Popular</div>' : ''}
+        <div class="service-icon" style="background:${s.color}18;border:1px solid ${s.color}30">${s.icon}</div>
+        <h3>${s.title}</h3>
+        <p>${s.desc}</p>
+        <div class="service-footer">
+          <span class="service-price" style="color:${s.color}">${s.price}</span>
+          <div class="service-arrow" style="background:${s.color}18;color:${s.color}">→</div>
+        </div>
+      </div>`;
+    });
+
+    // -- RENDER STEPS --
+    const sc = document.getElementById('stepsContainer');
+    sc.style.display = 'flex';
+    sc.style.flexDirection = 'column';
+    sc.style.gap = '44px';
+    STEPS.forEach((s, i) => {
+      sc.innerHTML += `<div class="step-row fade-in delay-${i+1}">
+        <div class="step-num">${i+1}</div>
+        <div class="step-card">
+          <div style="display:flex;gap:16px;align-items:flex-start">
+            <div style="width:44px;height:44px;background:rgba(0,198,255,.1);border:1px solid rgba(0,198,255,.2);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0">${s.icon}</div>
+            <div>
+              <div class="step-tag">Step ${s.n}</div>
+              <h3>${s.title}</h3>
+              <p>${s.desc}</p>
+              <div class="step-detail"><span style="font-size:9px">●</span> ${s.detail}</div>
+            </div>
+          </div>
+        </div>
+      </div>`;
+    });
+
+    // -- RENDER PROMISES --
+    const pg = document.getElementById('promiseGrid');
+    PROMISES.forEach((p, i) => {
+      pg.innerHTML += `<div class="promise-card fade-in delay-${i+1}">
+        <div class="promise-icon">${p.icon}</div>
+        <h3>${p.title}</h3>
+        <p>${p.desc}</p>
+      </div>`;
+    });
+
+    // -- STATS COUNTER --
+    function countUp(el, target, isFloat) {
+      const dur = 2000, steps = 60;
+      let current = 0;
+      const inc = target / steps;
+      const t = setInterval(() => {
+        current += inc;
+        if (current >= target) { el.textContent = isFloat ? target + '★' : (target >= 1000 ? Math.floor(target/1000)+'K+' : target+'+'); clearInterval(t); }
+        else el.textContent = isFloat ? current.toFixed(1) : (Math.floor(current) >= 1000 ? Math.floor(current/1000)+'K+' : Math.floor(current)+'+');
+      }, dur/steps);
+    }
+    let statsStarted = false;
+    const statsObserver = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting && !statsStarted) {
+        statsStarted = true;
+        countUp(document.getElementById('stat1'), 50000, false);
+        countUp(document.getElementById('stat2'), 2000, false);
+        countUp(document.getElementById('stat3'), 50, false);
+        countUp(document.getElementById('stat4'), 4.9, true);
+      }
+    }, { threshold: .2 });
+    statsObserver.observe(document.getElementById('statsRow'));
+
+    // -- TESTIMONIALS --
+    let activeTest = 0;
+    function renderFeatured(i) {
+      const t = TESTIMONIALS[i];
+      document.getElementById('featuredText').textContent = `"${t.text}"`;
+      document.getElementById('featuredAvatar').textContent = t.avatar;
+      document.getElementById('featuredAvatar').style.background = `linear-gradient(135deg,${t.color},${t.color}88)`;
+      document.getElementById('featuredName').textContent = t.name;
+      document.getElementById('featuredRole').textContent = `${t.role} • ${t.city}`;
+      document.getElementById('featuredServiceTag').textContent = t.service;
+      document.getElementById('featuredServiceTag').style.background = `${t.color}18`;
+      document.getElementById('featuredServiceTag').style.border = `1px solid ${t.color}33`;
+      document.getElementById('featuredServiceTag').style.color = t.color;
+      // dots
+      document.querySelectorAll('.test-dot').forEach((d, j) => {
+        d.style.width = j === i ? '32px' : '8px';
+        d.style.background = j === i ? 'var(--accent)' : 'rgba(255,255,255,.2)';
+      });
+    }
+    const td = document.getElementById('testDots');
+    const tg = document.getElementById('testGrid');
+    TESTIMONIALS.forEach((t, i) => {
+      const dot = document.createElement('button');
+      dot.className = 'test-dot';
+      dot.style.cssText = `width:${i===0?'32px':'8px'};height:8px;background:${i===0?'var(--accent)':'rgba(255,255,255,.2)'};border-radius:4px;border:none;cursor:pointer;`;
+      dot.onclick = () => { activeTest = i; renderFeatured(i); };
+      td.appendChild(dot);
+
+      tg.innerHTML += `<div class="test-card fade-in delay-${i%4+1}" onclick="activeTest=${i};renderFeatured(${i})" style="cursor:pointer">
+        <div class="test-card-top">
+          <div style="display:flex;align-items:center;gap:10px">
+            <div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,${t.color},${t.color}88);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0">${t.avatar}</div>
+            <div><div class="test-card-name">${t.name}</div><div class="test-card-city">${t.city}</div></div>
+          </div>
+          <div class="test-card-stars">★★★★★</div>
+        </div>
+        <div class="test-card-text">"${t.text}"</div>
+        <div class="test-card-service" style="color:${t.color}">${t.service} ✓</div>
+      </div>`;
+    });
+    renderFeatured(0);
+    setInterval(() => { activeTest = (activeTest+1)%TESTIMONIALS.length; renderFeatured(activeTest); }, 5000);
+
+    // -- APP SHOWCASE --
+    const tabsEl = document.getElementById('screenTabs');
+    const contentEl = document.getElementById('showcaseContent');
+    const glowEl = document.getElementById('showcaseGlow');
+    let activeScreen = 0;
+
+    function renderScreen(i) {
+      const s = SCREENS[i];
+      contentEl.innerHTML = s.html;
+      glowEl.style.background = `radial-gradient(circle,${s.color}22,transparent 70%)`;
+      document.querySelectorAll('.screen-tab').forEach((t, j) => {
+        t.classList.toggle('active', j === i);
+        const dot = t.querySelector('.dot-indicator');
+        if (dot) {
+          dot.style.background = j === i ? s.color : 'rgba(255,255,255,.2)';
+          dot.style.boxShadow = j === i ? `0 0 8px ${s.color}` : 'none';
+        }
+        t.querySelector('.screen-tab-label').style.color = j === i ? SCREENS[j].color : 'var(--muted)';
+      });
+    }
+
+    SCREENS.forEach((s, i) => {
+      const tab = document.createElement('div');
+      tab.className = `screen-tab${i === 0 ? ' active' : ''}`;
+      tab.innerHTML = `<div style="display:flex;align-items:flex-start;gap:12px">
+        <span class="dot-indicator" style="background:${i===0?s.color:'rgba(255,255,255,.2)'};box-shadow:${i===0?`0 0 8px ${s.color}`:'none'};margin-top:4px"></span>
+        <div>
+          <div class="screen-tab-label" style="color:${i===0?s.color:'var(--muted)'}">${s.label}</div>
+          <h3>${s.title}</h3>
+          <p>${s.desc}</p>
+        </div>
+      </div>`;
+      tab.onclick = () => { activeScreen = i; renderScreen(i); };
+      tabsEl.appendChild(tab);
+    });
+    renderScreen(0);
+
+    // -- SERVICE TICKER --
+    const services = ['Home Cleaning','Plumbing','Electrical','AC Repair','Beauty & Spa','Carpentry','Pest Control','Painting'];
+    let si = 0;
+    const rotEl = document.getElementById('rotatingService');
+    setInterval(() => {
+      si = (si+1)%services.length;
+      rotEl.style.animation = 'none';
+      rotEl.offsetHeight;
+      rotEl.textContent = services[si];
+      rotEl.style.animation = 'fadeUp .5s ease';
+    }, 2500);
+
+    // -- NAVBAR SCROLL --
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // -- CURSOR --
+    let mx=0,my=0,fx=0,fy=0;
+    const cur = document.getElementById('cursor');
+    const fol = document.getElementById('cursorFollow');
+    window.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cur.style.transform = `translate(${mx}px,${my}px) translate(-50%,-50%)`;
+    });
+    (function raf() {
+      fx += (mx-fx)*.12; fy += (my-fy)*.12;
+      fol.style.transform = `translate(${fx}px,${fy}px) translate(-50%,-50%)`;
+      requestAnimationFrame(raf);
+    })();
+
+    // -- INTERSECTION OBSERVER --
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: .12 });
+    document.querySelectorAll('.fade-in,.fade-left').forEach(el => obs.observe(el));
+  </script>
+</body>
+</html>
