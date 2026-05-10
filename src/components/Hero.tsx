@@ -3,11 +3,19 @@ import { useEffect, useRef, useState } from 'react'
 
 const SERVICES_TICKER = ['Home Cleaning', 'Plumbing', 'Electrical', 'AC Repair', 'Beauty & Spa', 'Carpentry', 'Pest Control', 'Painting']
 
+const POPULAR_SERVICES = [
+  { icon: 'https://img.icons8.com/3d-fluency/94/vacuum-cleaner.png', name: 'Cleaning', price: '₹399' },
+  { icon: 'https://img.icons8.com/3d-fluency/94/wrench.png', name: 'Plumbing', price: '₹199' },
+  { icon: 'https://img.icons8.com/3d-fluency/94/flash-on.png', name: 'Electrical', price: '₹249' },
+  { icon: 'https://img.icons8.com/3d-fluency/94/air-conditioner.png', name: 'AC Service', price: '₹349' },
+  { icon: 'https://img.icons8.com/3d-fluency/94/lotus.png', name: 'Beauty', price: '₹499' },
+  { icon: 'https://img.icons8.com/3d-fluency/94/bug.png', name: 'Pest Control', price: '₹599' },
+]
+
 export default function Hero() {
   const [currentService, setCurrentService] = useState(0)
   const [isVisible, setIsVisible] = useState(false)
-  const orb1Ref = useRef<HTMLDivElement>(null)
-  const orb2Ref = useRef<HTMLDivElement>(null)
+  const [pincode, setPincode] = useState('')
 
   useEffect(() => {
     setIsVisible(true)
@@ -17,21 +25,6 @@ export default function Hero() {
     return () => clearInterval(interval)
   }, [])
 
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 30
-      const y = (e.clientY / window.innerHeight - 0.5) * 30
-      if (orb1Ref.current) {
-        orb1Ref.current.style.transform = `translate(${x * 0.5}px, ${y * 0.5}px)`
-      }
-      if (orb2Ref.current) {
-        orb2Ref.current.style.transform = `translate(${-x * 0.3}px, ${-y * 0.3}px)`
-      }
-    }
-    window.addEventListener('mousemove', handleMouseMove)
-    return () => window.removeEventListener('mousemove', handleMouseMove)
-  }, [])
-
   return (
     <section style={{
       minHeight: '100vh',
@@ -39,282 +32,227 @@ export default function Hero() {
       alignItems: 'center',
       position: 'relative',
       overflow: 'hidden',
-      paddingTop: '100px',
+      paddingTop: '72px',
+      background: 'linear-gradient(160deg, #FFFFFF 0%, #F5F3FF 40%, #EEF2FF 100%)',
     }}>
-      {/* Background */}
-      <div style={{ position: 'absolute', inset: 0 }} className="grid-pattern" />
-
-      {/* Orbs */}
-      <div ref={orb1Ref} className="orb orb-blue" style={{
-        width: '600px', height: '600px',
-        top: '-200px', right: '-100px',
-        transition: 'transform 0.8s ease'
-      }} />
-      <div ref={orb2Ref} className="orb orb-purple" style={{
+      {/* Decorative blobs */}
+      <div style={{
+        position: 'absolute', top: '-120px', right: '-120px',
         width: '500px', height: '500px',
-        bottom: '-100px', left: '-150px',
-        transition: 'transform 0.8s ease'
+        background: 'radial-gradient(circle, rgba(59,46,163,0.08), transparent 70%)',
+        borderRadius: '50%', zIndex: 0
       }} />
-      <div className="orb orb-gold" style={{
-        width: '300px', height: '300px',
-        top: '50%', left: '50%',
-        transform: 'translate(-50%, -50%)',
-        animation: 'float 10s ease-in-out infinite',
-        opacity: 0.08
+      <div style={{
+        position: 'absolute', bottom: '-80px', left: '-80px',
+        width: '350px', height: '350px',
+        background: 'radial-gradient(circle, rgba(59,46,163,0.05), transparent 70%)',
+        borderRadius: '50%', zIndex: 0
       }} />
 
-      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 32px', width: '100%', position: 'relative', zIndex: 2 }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'center' }}>
+      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '60px 32px', width: '100%', position: 'relative', zIndex: 2 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: '60px', alignItems: 'center' }}>
 
-          {/* Left — Text */}
-          <div style={{ opacity: isVisible ? 1 : 0, transform: isVisible ? 'none' : 'translateY(40px)', transition: 'all 1s ease' }}>
-            <div className="badge" style={{ marginBottom: '28px' }}>
-              <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#00ff88', display: 'inline-block', boxShadow: '0 0 8px #00ff88' }} />
-              Now Available in Your City
+          {/* Left — Text & Search */}
+          <div style={{ opacity: isVisible ? 1 : 0, transform: isVisible ? 'none' : 'translateY(30px)', transition: 'all 0.9s ease' }}>
+
+            {/* Trust pill */}
+            <div style={{
+              display: 'inline-flex', alignItems: 'center', gap: '8px',
+              background: '#EEF2FF', border: '1px solid #C7D2FE',
+              padding: '6px 14px', borderRadius: '50px',
+              fontSize: '13px', fontWeight: '600', color: '#3B2EA3',
+              marginBottom: '28px'
+            }}>
+              <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#22c55e', display: 'inline-block', boxShadow: '0 0 8px #22c55e' }} />
+              Trusted by 50,000+ families across India
             </div>
 
             <h1 style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(44px, 6vw, 78px)',
-              fontWeight: '700',
-              lineHeight: '1.08',
-              marginBottom: '16px',
-              letterSpacing: '-1px',
-              color: 'white'
+              fontFamily: 'var(--font-body)',
+              fontSize: 'clamp(40px, 5vw, 68px)',
+              fontWeight: '800',
+              lineHeight: '1.1',
+              marginBottom: '12px',
+              letterSpacing: '-2px',
+              color: '#111827'
             }}>
-              Your Home,{' '}
-              <span className="gradient-text">Perfectly</span>
-              <br />Cared For
+              Home Services,<br />
+              <span style={{ color: '#3B2EA3' }}>Done Right.</span>
             </h1>
 
-            {/* Rotating service tag */}
-            <div style={{
-              display: 'flex', alignItems: 'center', gap: '12px',
-              marginBottom: '28px'
-            }}>
-              <span style={{ color: 'var(--color-text-muted)', fontSize: '20px', fontFamily: 'var(--font-display)' }}>
-                Expert
-              </span>
+            {/* Rotating tag */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px', flexWrap: 'wrap' }}>
+              <span style={{ color: '#6B7280', fontSize: '18px', fontWeight: '400' }}>Expert</span>
               <div style={{
-                background: 'linear-gradient(135deg, rgba(0,198,255,0.15), rgba(0,114,255,0.1))',
-                border: '1px solid rgba(0,198,255,0.3)',
-                borderRadius: '12px', padding: '6px 20px',
-                overflow: 'hidden', minWidth: '200px',
-                textAlign: 'center'
+                background: '#3B2EA3', borderRadius: '8px',
+                padding: '4px 16px', overflow: 'hidden', minWidth: '190px'
               }}>
                 <span key={currentService} style={{
-                  fontFamily: 'var(--font-display)',
-                  fontSize: '20px', fontWeight: '600',
-                  color: 'var(--color-accent)',
-                  display: 'block',
-                  animation: 'fadeInUp 0.5s ease'
+                  fontSize: '18px', fontWeight: '700',
+                  color: '#FFFFFF', display: 'block',
+                  animation: 'fadeInUp 0.4s ease'
                 }}>
                   {SERVICES_TICKER[currentService]}
                 </span>
               </div>
-              <span style={{ color: 'var(--color-text-muted)', fontSize: '20px', fontFamily: 'var(--font-display)' }}>
-                at your door
-              </span>
+              <span style={{ color: '#6B7280', fontSize: '18px', fontWeight: '400' }}>at your door</span>
             </div>
 
             <p style={{
-              fontSize: '17px', lineHeight: '1.8',
-              color: 'var(--color-text-muted)',
-              marginBottom: '40px',
-              maxWidth: '480px'
+              fontSize: '17px', lineHeight: '1.75',
+              color: '#6B7280', marginBottom: '36px', maxWidth: '500px'
             }}>
-              Profam connects you with verified, background-checked professionals for every home service need. Book in seconds, get it done right — every time.
+              Book verified professionals in 60 seconds. Transparent pricing, background-checked experts, and a 100% satisfaction guarantee.
             </p>
 
-            {/* CTAs */}
-            <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', marginBottom: '56px' }}>
-              <a href="#download" className="btn-primary" style={{ textDecoration: 'none' }}>
-                Book a Service
-              </a>
-              <a href="#how-it-works" className="btn-outline" style={{ textDecoration: 'none' }}>
-                See How It Works ↓
-              </a>
+            {/* Search / Location bar */}
+            <div style={{
+              background: '#FFFFFF',
+              border: '2px solid #E5E7EB',
+              borderRadius: '14px',
+              padding: '8px 8px 8px 20px',
+              display: 'flex', alignItems: 'center', gap: '12px',
+              boxShadow: '0 8px 32px rgba(0,0,0,0.08)',
+              marginBottom: '32px',
+              maxWidth: '500px'
+            }}>
+              <span style={{ fontSize: '20px' }}>📍</span>
+              <input
+                value={pincode}
+                onChange={e => setPincode(e.target.value)}
+                placeholder="Enter your pincode or area..."
+                style={{
+                  flex: 1, border: 'none', outline: 'none',
+                  fontSize: '15px', color: '#111827',
+                  background: 'transparent', fontFamily: 'var(--font-body)'
+                }}
+              />
+              <button style={{
+                background: 'linear-gradient(135deg, #3B2EA3, #1E1B4B)',
+                color: 'white', padding: '12px 24px', borderRadius: '10px',
+                border: 'none', fontSize: '15px', fontWeight: '700', cursor: 'pointer',
+                whiteSpace: 'nowrap',
+                boxShadow: '0 4px 12px rgba(59,46,163,0.3)'
+              }}>
+                Book Now →
+              </button>
             </div>
 
-            {/* Mini stats */}
-            <div style={{ display: 'flex', gap: '40px', flexWrap: 'wrap' }}>
+            {/* Trust badges */}
+            <div style={{ display: 'flex', gap: '28px', flexWrap: 'wrap' }}>
               {[
-                { val: '50K+', label: 'Happy Customers' },
-                { val: '2K+', label: 'Verified Pros' },
-                { val: '4.9★', label: 'Average Rating' },
+                { icon: '✅', val: '50K+', label: 'Happy Customers' },
+                { icon: '⭐', val: '4.9/5', label: 'Avg Rating' },
+                { icon: '🛡️', val: '100%', label: 'Background Checked' },
               ].map(stat => (
-                <div key={stat.label}>
-                  <div style={{
-                    fontFamily: 'var(--font-display)',
-                    fontSize: '28px', fontWeight: '700',
-                    color: 'white', lineHeight: '1'
-                  }}>{stat.val}</div>
-                  <div style={{ fontSize: '13px', color: 'var(--color-text-muted)', marginTop: '4px' }}>
-                    {stat.label}
+                <div key={stat.label} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span style={{ fontSize: '18px' }}>{stat.icon}</span>
+                  <div>
+                    <div style={{ fontSize: '16px', fontWeight: '800', color: '#111827', lineHeight: '1' }}>{stat.val}</div>
+                    <div style={{ fontSize: '12px', color: '#9CA3AF', marginTop: '2px' }}>{stat.label}</div>
                   </div>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Right — 3D Phone Mockup */}
+          {/* Right — Visual Card Stack */}
           <div style={{
-            display: 'flex', justifyContent: 'center', alignItems: 'center',
-            position: 'relative',
+            display: 'flex', flexDirection: 'column', gap: '16px',
             opacity: isVisible ? 1 : 0,
             transform: isVisible ? 'none' : 'translateX(40px)',
-            transition: 'all 1.2s ease'
+            transition: 'all 1s ease 0.2s'
           }}>
-            {/* Glow behind phone */}
+
+            {/* Active booking card */}
             <div style={{
-              position: 'absolute',
-              width: '400px', height: '400px',
-              background: 'radial-gradient(circle, rgba(0,114,255,0.3), transparent 70%)',
-              borderRadius: '50%',
-              animation: 'float 6s ease-in-out infinite'
-            }} />
-
-            {/* Phone */}
-            <div className="phone-frame" style={{
-              width: '300px', height: '600px',
-              position: 'relative',
-              animation: 'float 7s ease-in-out infinite',
-              perspective: '1000px',
-              transform: 'rotateY(-8deg) rotateX(4deg)',
+              background: '#FFFFFF',
+              borderRadius: '20px',
+              padding: '20px 24px',
+              boxShadow: '0 8px 40px rgba(0,0,0,0.08)',
+              border: '1px solid #F3F4F6',
+              display: 'flex', alignItems: 'center', gap: '16px'
             }}>
-              <div className="phone-notch" />
-
-              {/* Phone screen */}
               <div style={{
-                background: 'var(--color-bg-2)',
-                borderRadius: '36px',
-                height: 'calc(100% - 36px)',
-                overflow: 'hidden',
-                position: 'relative'
+                width: '52px', height: '52px', borderRadius: '14px',
+                background: '#EEF2FF', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0
               }}>
-                {/* Status bar */}
-                <div style={{ padding: '12px 20px 0', display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: 'rgba(255,255,255,0.6)' }}>
-                  <span>9:41</span>
-                  <span>●●● WiFi <img src="https://img.icons8.com/3d-fluency/94/battery.png" alt="" style={{width: '14px', verticalAlign: 'middle'}} /></span>
-                </div>
+                <img src="https://img.icons8.com/3d-fluency/94/vacuum-cleaner.png" alt="" style={{ width: '32px' }} />
+              </div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: '13px', color: '#9CA3AF', marginBottom: '2px' }}>Confirmed booking</div>
+                <div style={{ fontSize: '16px', fontWeight: '700', color: '#111827' }}>Deep Home Cleaning</div>
+                <div style={{ fontSize: '13px', color: '#22c55e', fontWeight: '600', marginTop: '2px' }}>⚡ Pro arriving in 45 minutes</div>
+              </div>
+              <div style={{ background: '#F0FDF4', borderRadius: '8px', padding: '4px 10px', fontSize: '12px', fontWeight: '700', color: '#16a34a' }}>LIVE</div>
+            </div>
 
-                {/* App UI */}
-                <div style={{ padding: '16px' }}>
-                  <div style={{ marginBottom: '16px' }}>
-                    <p style={{ fontSize: '11px', color: 'var(--color-text-muted)', marginBottom: '2px' }}>Good morning,</p>
-                    <p style={{ fontSize: '16px', fontWeight: '700', color: 'white' }}>What do you need? <img src="https://img.icons8.com/3d-fluency/94/hand.png" alt="" style={{width: '20px', verticalAlign: 'middle'}} /></p>
+            {/* Quick service grid */}
+            <div style={{
+              background: '#FFFFFF',
+              borderRadius: '20px',
+              padding: '20px',
+              boxShadow: '0 8px 40px rgba(0,0,0,0.06)',
+              border: '1px solid #F3F4F6',
+            }}>
+              <div style={{ fontSize: '13px', fontWeight: '700', color: '#6B7280', marginBottom: '16px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Popular Services</div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
+                {POPULAR_SERVICES.map(s => (
+                  <div key={s.name} style={{
+                    background: '#F9FAFB',
+                    borderRadius: '12px', padding: '12px 8px',
+                    textAlign: 'center', cursor: 'pointer',
+                    border: '1px solid #F3F4F6',
+                    transition: 'all 0.2s ease'
+                  }}
+                    onMouseEnter={e => {
+                      (e.currentTarget as HTMLElement).style.background = '#EEF2FF'
+                      ;(e.currentTarget as HTMLElement).style.borderColor = '#C7D2FE'
+                    }}
+                    onMouseLeave={e => {
+                      (e.currentTarget as HTMLElement).style.background = '#F9FAFB'
+                      ;(e.currentTarget as HTMLElement).style.borderColor = '#F3F4F6'
+                    }}
+                  >
+                    <img src={s.icon} alt="" style={{ width: '32px', height: '32px', objectFit: 'contain', marginBottom: '6px' }} />
+                    <div style={{ fontSize: '11px', fontWeight: '700', color: '#374151' }}>{s.name}</div>
+                    <div style={{ fontSize: '10px', color: '#3B2EA3', fontWeight: '600', marginTop: '2px' }}>{s.price}</div>
                   </div>
-
-                  {/* Search bar */}
-                  <div style={{
-                    background: 'rgba(255,255,255,0.07)',
-                    borderRadius: '12px', padding: '10px 14px',
-                    display: 'flex', alignItems: 'center', gap: '8px',
-                    marginBottom: '20px',
-                    border: '1px solid rgba(255,255,255,0.08)'
-                  }}>
-                    <span style={{ display: 'flex', alignItems: 'center' }}><img src="https://img.icons8.com/3d-fluency/94/search.png" alt="" style={{width: '16px'}} /></span>
-                    <span style={{ fontSize: '12px', color: 'var(--color-text-muted)' }}>Search services...</span>
-                  </div>
-
-                  {/* Service icons grid */}
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '10px', marginBottom: '20px' }}>
-                    {[
-                      { icon: 'https://img.icons8.com/3d-fluency/94/broom.png', name: 'Clean' },
-                      { icon: 'https://img.icons8.com/3d-fluency/94/wrench.png', name: 'Repair' },
-                      { icon: 'https://img.icons8.com/3d-fluency/94/flash-on.png', name: 'Electr.' },
-                      { icon: 'https://img.icons8.com/3d-fluency/94/plumbing.png', name: 'Plumb' },
-                      { icon: 'https://img.icons8.com/3d-fluency/94/air-conditioner.png', name: 'AC' },
-                      { icon: 'https://img.icons8.com/3d-fluency/94/lotus.png', name: 'Spa' },
-                      { icon: 'https://img.icons8.com/3d-fluency/94/hammer.png', name: 'Carpntr' },
-                      { icon: 'https://img.icons8.com/3d-fluency/94/bug.png', name: 'Pest' },
-                    ].map(s => (
-                      <div key={s.name} style={{
-                        background: 'rgba(255,255,255,0.05)',
-                        borderRadius: '12px', padding: '10px 4px',
-                        textAlign: 'center', cursor: 'pointer',
-                        border: '1px solid rgba(255,255,255,0.06)'
-                      }}>
-                        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '4px' }}>
-                          <img src={s.icon} alt="" style={{ width: '20px', height: '20px', objectFit: 'contain' }} />
-                        </div>
-                        <div style={{ fontSize: '9px', color: 'var(--color-text-muted)' }}>{s.name}</div>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Featured card */}
-                  <div style={{
-                    background: 'linear-gradient(135deg, #00c6ff22, #0072ff22)',
-                    border: '1px solid rgba(0,198,255,0.25)',
-                    borderRadius: '16px', padding: '14px'
-                  }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <div>
-                        <p style={{ fontSize: '11px', color: 'var(--color-accent)', marginBottom: '2px', display: 'flex', alignItems: 'center', gap: '4px' }}><img src="https://img.icons8.com/3d-fluency/94/star.png" alt="" style={{width: '12px'}} /> Top Pick</p>
-                        <p style={{ fontSize: '14px', fontWeight: '700', color: 'white', marginBottom: '2px' }}>Deep Home Cleaning</p>
-                        <p style={{ fontSize: '11px', color: 'var(--color-text-muted)' }}>Starting ₹599</p>
-                      </div>
-                      <div style={{
-                        background: 'linear-gradient(135deg, #00c6ff, #0072ff)',
-                        borderRadius: '10px', padding: '8px 14px',
-                        fontSize: '11px', fontWeight: '600', color: 'white'
-                      }}>Book</div>
-                    </div>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
 
-            {/* Floating badges */}
+            {/* Rating card */}
             <div style={{
-              position: 'absolute', top: '60px', right: '-20px',
-              background: 'rgba(5, 10, 20, 0.9)',
-              border: '1px solid rgba(0,255,136,0.3)',
-              borderRadius: '14px', padding: '12px 16px',
-              backdropFilter: 'blur(20px)',
-              animation: 'float 5s ease-in-out 1s infinite'
+              background: 'linear-gradient(135deg, #3B2EA3, #1E1B4B)',
+              borderRadius: '20px', padding: '18px 24px',
+              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+              boxShadow: '0 8px 32px rgba(59,46,163,0.3)'
             }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span style={{ display: 'flex' }}><img src="https://img.icons8.com/3d-fluency/94/ok.png" alt="" style={{width: '24px'}} /></span>
-                <div>
-                  <p style={{ fontSize: '11px', color: 'white', fontWeight: '600' }}>Booking Confirmed</p>
-                  <p style={{ fontSize: '10px', color: 'var(--color-text-muted)' }}>Pro arriving in 45 min</p>
-                </div>
+              <div>
+                <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.6)', marginBottom: '4px' }}>Customer Satisfaction</div>
+                <div style={{ fontSize: '28px', fontWeight: '800', color: '#FFFFFF', lineHeight: '1' }}>4.9 ★</div>
+                <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', marginTop: '4px' }}>74,712 ratings</div>
               </div>
-            </div>
-
-            <div style={{
-              position: 'absolute', bottom: '80px', left: '-30px',
-              background: 'rgba(5, 10, 20, 0.9)',
-              border: '1px solid rgba(245,158,11,0.3)',
-              borderRadius: '14px', padding: '12px 16px',
-              backdropFilter: 'blur(20px)',
-              animation: 'float 6s ease-in-out 2s infinite'
-            }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span style={{ display: 'flex' }}><img src="https://img.icons8.com/3d-fluency/94/star.png" alt="" style={{width: '24px'}} /></span>
-                <div>
-                  <p style={{ fontSize: '11px', color: 'white', fontWeight: '600' }}>Rated 4.9/5</p>
-                  <p style={{ fontSize: '10px', color: 'var(--color-text-muted)' }}>50,000+ Reviews</p>
-                </div>
+              <div style={{ textAlign: 'right' }}>
+                <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.6)', marginBottom: '4px' }}>This Month</div>
+                <div style={{ fontSize: '28px', fontWeight: '800', color: '#FFFFFF', lineHeight: '1' }}>8,240</div>
+                <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', marginTop: '4px' }}>bookings done</div>
               </div>
             </div>
           </div>
-
         </div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Scroll cue */}
       <div style={{
-        position: 'absolute', bottom: '40px', left: '50%',
-        transform: 'translateX(-50%)',
-        display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px',
+        position: 'absolute', bottom: '32px', left: '50%', transform: 'translateX(-50%)',
+        display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px',
         animation: 'float 2s ease-in-out infinite'
       }}>
-        <span style={{ fontSize: '12px', color: 'var(--color-text-muted)', letterSpacing: '2px', textTransform: 'uppercase' }}>Scroll</span>
-        <svg width="24" height="24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="2">
-          <path d="M12 5v14M5 12l7 7 7-7" strokeLinecap="round" strokeLinejoin="round" />
+        <span style={{ fontSize: '11px', color: '#9CA3AF', letterSpacing: '2px', textTransform: 'uppercase' }}>Scroll</span>
+        <svg width="20" height="20" fill="none" stroke="#9CA3AF" strokeWidth="2">
+          <path d="M10 4v12M4 10l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </div>
 

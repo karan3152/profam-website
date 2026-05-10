@@ -1,179 +1,132 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
 
-const STATS = [
-  { value: 50000, suffix: '+', label: 'Happy Customers', icon: 'https://img.icons8.com/3d-fluency/94/thumb-up.png' },
-  { value: 2000, suffix: '+', label: 'Verified Professionals', icon: 'https://img.icons8.com/3d-fluency/94/worker-male.png' },
-  { value: 50, suffix: '+', label: 'Service Categories', icon: 'https://img.icons8.com/3d-fluency/94/toolbox.png' },
-  { value: 4.9, suffix: '★', label: 'Average App Rating', icon: 'https://img.icons8.com/3d-fluency/94/star.png', isFloat: true },
+const REASONS = [
+  { icon: '🔒', title: 'Background Verified Pros', desc: 'Every professional is police-verified, trained, and rated. Your safety is our top priority.' },
+  { icon: '💰', title: 'Transparent Pricing', desc: 'See the full price before you book. Zero hidden charges, zero surprises.' },
+  { icon: '⏰', title: 'On-Time, Every Time', desc: 'We guarantee punctuality. If your pro is late, you get a discount — automatically.' },
+  { icon: '🔄', title: '100% Redo Guarantee', desc: 'Not satisfied? We\'ll send a pro back for free within 48 hours, no questions asked.' },
+  { icon: '📱', title: 'Book in 60 Seconds', desc: 'Our app makes it ridiculously easy to book any service from anywhere, anytime.' },
+  { icon: '🌱', title: 'Eco-Friendly Products', desc: 'We use green, safe, certified cleaning products that are good for your family and the planet.' },
 ]
 
-const PROMISES = [
-  { icon: 'https://img.icons8.com/3d-fluency/94/shield.png', title: 'Background Verified', desc: 'Every Profam professional undergoes thorough background checks, identity verification, and skill assessments before being onboarded.' },
-  { icon: 'https://img.icons8.com/3d-fluency/94/money-bag.png', title: 'Transparent Pricing', desc: 'See the exact price before booking. No hidden charges, no last-minute surprises. What you see is what you pay.' },
-  { icon: 'https://img.icons8.com/3d-fluency/94/ok.png', title: 'Satisfaction Guarantee', desc: 'Not happy with the service? We\'ll send another professional for free or give you a full refund. Your satisfaction is our commitment.' },
-  { icon: 'https://img.icons8.com/3d-fluency/94/flash-on.png', title: 'On-Time, Every Time', desc: 'Our professionals are trained to arrive within the scheduled window. Real-time tracking ensures you\'re always in the know.' },
-  { icon: 'https://img.icons8.com/3d-fluency/94/lock.png', title: 'Secure Payments', desc: 'Pay only after the job is done, using our encrypted payment gateway. Your financial data is always protected.' },
-  { icon: 'https://img.icons8.com/3d-fluency/94/phone.png', title: '24/7 Support', desc: 'Our customer support team is available round the clock via chat, call, or email to resolve any concern immediately.' },
+const PARTNERS = [
+  { name: 'Google', logo: 'https://img.icons8.com/color/96/google-logo.png' },
+  { name: 'Amazon', logo: 'https://img.icons8.com/color/96/amazon.png' },
+  { name: 'Swiggy', logo: 'https://img.icons8.com/color/96/swiggy-app.png' },
+  { name: 'Razorpay', logo: 'https://img.icons8.com/color/96/razorpay.png' },
+  { name: 'PhonePe', logo: 'https://img.icons8.com/color/96/phonepe.png' },
 ]
-
-function useCountUp(target: number, isFloat: boolean, started: boolean) {
-  const [count, setCount] = useState(0)
-  useEffect(() => {
-    if (!started) return
-    const duration = 2000
-    const steps = 60
-    const increment = target / steps
-    let current = 0
-    const timer = setInterval(() => {
-      current += increment
-      if (current >= target) { setCount(target); clearInterval(timer) }
-      else setCount(isFloat ? parseFloat(current.toFixed(1)) : Math.floor(current))
-    }, duration / steps)
-    return () => clearInterval(timer)
-  }, [started, target, isFloat])
-  return count
-}
-
-function StatItem({ stat, started }: { stat: typeof STATS[0], started: boolean }) {
-  const count = useCountUp(stat.value, stat.isFloat || false, started)
-  return (
-    <div style={{ textAlign: 'center' }}>
-      <div style={{ marginBottom: '12px', display: 'flex', justifyContent: 'center' }}>
-        <img src={stat.icon} alt={stat.label} style={{ width: '48px', height: '48px', objectFit: 'contain' }} />
-      </div>
-      <div className="stat-number gradient-text">
-        {count}{stat.suffix}
-      </div>
-      <div style={{ fontSize: '14px', color: 'var(--color-text-muted)', marginTop: '8px', letterSpacing: '0.5px' }}>
-        {stat.label}
-      </div>
-    </div>
-  )
-}
 
 export default function WhyChooseUs() {
-  const [hoveredPromise, setHoveredPromise] = useState<number | null>(null)
   const sectionRef = useRef<HTMLElement>(null)
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) setVisible(true)
-    }, { threshold: 0.15 })
+    }, { threshold: 0.1 })
     if (sectionRef.current) observer.observe(sectionRef.current)
     return () => observer.disconnect()
   }, [])
 
   return (
-    <section id="our-promise" ref={sectionRef} className="section" style={{ position: 'relative', overflow: 'hidden' }}>
-      {/* BG gradient stripe */}
-      <div style={{
-        position: 'absolute', inset: 0,
-        background: 'linear-gradient(180deg, transparent, rgba(124, 58, 237, 0.05) 50%, transparent)'
-      }} />
+    <section id="why-choose-us" ref={sectionRef} className="section" style={{ background: '#FFFFFF' }}>
+      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 32px' }}>
 
-      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 32px', position: 'relative', zIndex: 1 }}>
-
-        {/* Stats row */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
-          gap: '40px',
-          padding: '56px 48px',
-          marginBottom: '80px',
-          background: 'linear-gradient(135deg, rgba(0,198,255,0.06), rgba(124,58,237,0.06))',
-          border: '1px solid rgba(255,255,255,0.08)',
-          borderRadius: '28px',
-          position: 'relative', overflow: 'hidden'
-        }} className="stats-grid">
-          {/* BG orb */}
-          <div style={{
-            position: 'absolute', width: '300px', height: '300px',
-            background: 'radial-gradient(circle, rgba(0,114,255,0.15), transparent)',
-            borderRadius: '50%', top: '-100px', right: '-50px', pointerEvents: 'none'
-          }} />
-          {STATS.map((stat, i) => (
-            <div key={stat.label} style={{
-              opacity: visible ? 1 : 0,
-              transform: visible ? 'none' : 'translateY(20px)',
-              transition: `all 0.6s ease ${i * 0.15}s`
-            }}>
-              <StatItem stat={stat} started={visible} />
-            </div>
-          ))}
-        </div>
-
-        {/* Why Choose Us Header */}
+        {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '64px' }}>
-          <div className="badge" style={{ marginBottom: '20px', justifyContent: 'center' }}>
-            🤝 Our Promise
+          <div style={{
+            display: 'inline-flex', alignItems: 'center', gap: '6px',
+            background: '#EEF2FF', border: '1px solid #C7D2FE',
+            padding: '5px 14px', borderRadius: '50px',
+            fontSize: '13px', fontWeight: '600', color: '#3B2EA3',
+            marginBottom: '16px'
+          }}>
+            🏆 Why ProFam
           </div>
           <h2 style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(36px, 5vw, 64px)',
-            fontWeight: '700', color: 'white',
-            lineHeight: '1.1', marginBottom: '20px',
-            letterSpacing: '-1px'
+            fontFamily: 'var(--font-body)',
+            fontSize: 'clamp(30px, 4vw, 48px)',
+            fontWeight: '800', color: '#111827',
+            lineHeight: '1.1', letterSpacing: '-1.5px', marginBottom: '16px'
           }}>
-            Why Thousands Choose{' '}
-            <span className="gradient-text">Profam</span>
+            The <span style={{ color: '#3B2EA3' }}>ProFam Promise</span>
           </h2>
-          <p style={{ fontSize: '17px', color: 'var(--color-text-muted)', maxWidth: '520px', margin: '0 auto', lineHeight: '1.7' }}>
-            We've built our entire platform around trust, quality, and your peace of mind.
+          <p style={{ fontSize: '17px', color: '#6B7280', maxWidth: '520px', margin: '0 auto', lineHeight: '1.6' }}>
+            We don't just send someone to your home. We send the right person, at the right time, with the right tools.
           </p>
         </div>
 
-        {/* Promise Grid */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
-          gap: '28px'
-        }}>
-          {PROMISES.map((promise, i) => (
-            <div
-              key={promise.title}
-              className="glass service-card"
-              onMouseEnter={() => setHoveredPromise(i)}
-              onMouseLeave={() => setHoveredPromise(null)}
-              style={{
-                padding: '32px',
-                opacity: visible ? 1 : 0,
-                transform: visible ? 'none' : 'translateY(30px)',
-                transition: `all 0.7s ease ${i * 0.1}s`,
-                border: hoveredPromise === i ? '1px solid rgba(0, 198, 255, 0.3)' : '1px solid rgba(255, 255, 255, 0.08)'
+        {/* Reasons grid */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px', marginBottom: '72px' }}>
+          {REASONS.map((reason, i) => (
+            <div key={reason.title} style={{
+              padding: '28px',
+              borderRadius: '18px',
+              border: '1px solid #F3F4F6',
+              background: '#FAFAFA',
+              opacity: visible ? 1 : 0,
+              transform: visible ? 'none' : 'translateY(20px)',
+              transition: `all 0.5s ease ${i * 0.08}s`,
+              cursor: 'default'
+            }}
+              onMouseEnter={e => {
+                const el = e.currentTarget as HTMLElement
+                el.style.background = '#F5F3FF'
+                el.style.borderColor = '#C7D2FE'
+                el.style.transform = 'translateY(-4px)'
+                el.style.boxShadow = '0 12px 32px rgba(59,46,163,0.08)'
+              }}
+              onMouseLeave={e => {
+                const el = e.currentTarget as HTMLElement
+                el.style.background = '#FAFAFA'
+                el.style.borderColor = '#F3F4F6'
+                el.style.transform = 'none'
+                el.style.boxShadow = 'none'
               }}
             >
               <div style={{
-                width: '56px', height: '56px',
-                background: 'rgba(0, 198, 255, 0.1)',
-                border: '1px solid rgba(0, 198, 255, 0.2)',
-                borderRadius: '16px',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                marginBottom: '20px',
-                overflow: 'hidden'
+                width: '52px', height: '52px', borderRadius: '14px',
+                background: '#EEF2FF', display: 'flex', alignItems: 'center',
+                justifyContent: 'center', fontSize: '24px', marginBottom: '16px'
               }}>
-                <img src={promise.icon} alt={promise.title} style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
+                {reason.icon}
               </div>
-              <h3 style={{ fontSize: '19px', fontWeight: '700', color: 'white', marginBottom: '12px' }}>
-                {promise.title}
-              </h3>
-              <p style={{ fontSize: '15px', color: 'var(--color-text-muted)', lineHeight: '1.7' }}>
-                {promise.desc}
-              </p>
+              <h3 style={{ fontSize: '17px', fontWeight: '800', color: '#111827', marginBottom: '8px' }}>{reason.title}</h3>
+              <p style={{ fontSize: '14px', color: '#6B7280', lineHeight: '1.7', margin: 0 }}>{reason.desc}</p>
             </div>
           ))}
         </div>
-      </div>
 
-      <style jsx>{`
-        @media (max-width: 768px) {
-          :global(.stats-grid) { grid-template-columns: repeat(2, 1fr) !important; }
-        }
-        @media (max-width: 480px) {
-          :global(.stats-grid) { grid-template-columns: 1fr 1fr !important; }
-        }
-      `}</style>
+        {/* Social proof big number strip */}
+        <div style={{
+          background: 'linear-gradient(135deg, #3B2EA3 0%, #1E1B4B 100%)',
+          borderRadius: '24px',
+          padding: '48px 40px',
+          display: 'grid',
+          gridTemplateColumns: 'repeat(4, 1fr)',
+          gap: '32px',
+          opacity: visible ? 1 : 0,
+          transition: 'all 0.8s ease 0.5s'
+        }}>
+          {[
+            { val: '50,000+', label: 'Satisfied Customers', icon: '😊' },
+            { val: '2,000+', label: 'Verified Professionals', icon: '👷' },
+            { val: '25+', label: 'Cities Covered', icon: '🏙️' },
+            { val: '4.9 ★', label: 'Average App Rating', icon: '⭐' },
+          ].map(stat => (
+            <div key={stat.label} style={{ textAlign: 'center' }}>
+              <div style={{ fontSize: '28px', marginBottom: '8px' }}>{stat.icon}</div>
+              <div style={{ fontSize: '36px', fontWeight: '900', color: '#FFFFFF', letterSpacing: '-1px', lineHeight: '1', marginBottom: '8px' }}>
+                {stat.val}
+              </div>
+              <div style={{ fontSize: '14px', color: 'rgba(255,255,255,0.65)' }}>{stat.label}</div>
+            </div>
+          ))}
+        </div>
+
+      </div>
     </section>
   )
 }

@@ -2,7 +2,7 @@
 
 const FOOTER_LINKS = {
   'Services': ['Home Cleaning', 'Plumbing', 'Electrical', 'AC Services', 'Beauty & Spa', 'Carpentry', 'Pest Control', 'Painting'],
-  'Company': ['About Profam', 'How It Works', 'Our Promise', 'Careers', 'Press', 'Contact Us'],
+  'Company': ['About ProFam', 'How It Works', 'Our Promise', 'Careers', 'Press', 'Contact Us'],
   'Support': ['Help Center', 'Safety', 'Terms of Service', 'Privacy Policy', 'Refund Policy'],
   'Cities': ['Mumbai', 'Delhi', 'Bangalore', 'Hyderabad', 'Chennai', 'Pune', 'Kolkata', 'Ahmedabad'],
 }
@@ -10,11 +10,10 @@ const FOOTER_LINKS = {
 export default function Footer() {
   return (
     <footer style={{
-      background: 'var(--color-bg-2)',
-      borderTop: '1px solid rgba(255,255,255,0.06)',
+      background: '#FAFAFA',
+      borderTop: '1px solid #E5E7EB',
       position: 'relative', overflow: 'hidden'
     }}>
-      {/* Top section */}
       <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '80px 32px 40px' }}>
         <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr', gap: '48px', marginBottom: '64px' }}>
 
@@ -23,21 +22,21 @@ export default function Footer() {
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
               <div style={{
                 width: '44px', height: '44px',
-                background: 'linear-gradient(135deg, #00c6ff, #0072ff)',
+                background: 'linear-gradient(135deg, #3B2EA3, #1E1B4B)',
                 borderRadius: '14px',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 fontSize: '20px', fontWeight: '800', color: 'white',
                 fontFamily: 'var(--font-display)',
-                boxShadow: '0 6px 20px rgba(0, 114, 255, 0.4)'
+                boxShadow: '0 6px 20px rgba(59, 46, 163, 0.15)'
               }}>P</div>
               <span style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: '28px', fontWeight: '700',
-                color: 'white', letterSpacing: '-0.5px'
-              }}>Profam</span>
+                fontFamily: 'var(--font-body)',
+                fontSize: '26px', fontWeight: '800',
+                color: '#111827', letterSpacing: '-0.5px'
+              }}>Pro<span style={{ color: '#3B2EA3' }}>Fam</span></span>
             </div>
-            <p style={{ fontSize: '14px', color: 'var(--color-text-muted)', lineHeight: '1.8', marginBottom: '24px', maxWidth: '260px' }}>
-              India's most trusted home services platform. Connecting you with verified professionals for a better home life.
+            <p style={{ fontSize: '15px', color: '#6B7280', lineHeight: '1.7', marginBottom: '24px', maxWidth: '280px' }}>
+              India's most trusted home services platform. Connecting you with verified professionals for a seamless experience.
             </p>
 
             {/* Social links */}
@@ -53,24 +52,24 @@ export default function Footer() {
                   href="#"
                   style={{
                     width: '36px', height: '36px',
-                    background: 'rgba(255,255,255,0.06)',
-                    border: '1px solid rgba(255,255,255,0.1)',
+                    background: '#FFFFFF',
+                    border: '1px solid #E5E7EB',
                     borderRadius: '10px',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: '13px', color: 'rgba(255,255,255,0.6)',
+                    fontSize: '13px', color: '#6B7280',
                     textDecoration: 'none',
                     transition: 'all 0.3s ease',
                     fontWeight: '600'
                   }}
                   onMouseEnter={e => {
-                    (e.currentTarget as HTMLElement).style.background = 'rgba(0,198,255,0.15)'
-                    ;(e.currentTarget as HTMLElement).style.borderColor = 'rgba(0,198,255,0.3)'
-                    ;(e.currentTarget as HTMLElement).style.color = 'var(--color-accent)'
+                    (e.currentTarget as HTMLElement).style.background = '#EEF2FF'
+                    ;(e.currentTarget as HTMLElement).style.borderColor = '#C7D2FE'
+                    ;(e.currentTarget as HTMLElement).style.color = '#3B2EA3'
                   }}
                   onMouseLeave={e => {
-                    (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.06)'
-                    ;(e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.1)'
-                    ;(e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.6)'
+                    (e.currentTarget as HTMLElement).style.background = '#FFFFFF'
+                    ;(e.currentTarget as HTMLElement).style.borderColor = '#E5E7EB'
+                    ;(e.currentTarget as HTMLElement).style.color = '#6B7280'
                   }}
                 >
                   {social.icon}
@@ -83,20 +82,20 @@ export default function Footer() {
           {Object.entries(FOOTER_LINKS).map(([category, links]) => (
             <div key={category}>
               <h4 style={{
-                fontSize: '13px', fontWeight: '700',
-                color: 'white', letterSpacing: '1px',
+                fontSize: '13px', fontWeight: '800',
+                color: '#111827', letterSpacing: '0.5px',
                 textTransform: 'uppercase', marginBottom: '20px'
               }}>{category}</h4>
-              <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '14px' }}>
                 {links.map(link => (
                   <li key={link}>
                     <a href="#" style={{
-                      fontSize: '14px', color: 'var(--color-text-muted)',
-                      textDecoration: 'none',
+                      fontSize: '14px', color: '#6B7280',
+                      textDecoration: 'none', fontWeight: '500',
                       transition: 'color 0.2s ease'
                     }}
-                      onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = 'var(--color-accent)'}
-                      onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = 'var(--color-text-muted)'}
+                      onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = '#3B2EA3'}
+                      onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = '#6B7280'}
                     >
                       {link}
                     </a>
@@ -109,59 +108,60 @@ export default function Footer() {
 
         {/* Newsletter */}
         <div style={{
-          background: 'linear-gradient(135deg, rgba(0,198,255,0.08), rgba(0,114,255,0.06))',
-          border: '1px solid rgba(0,198,255,0.15)',
-          borderRadius: '20px',
+          background: '#FFFFFF',
+          border: '1px solid #E5E7EB',
+          borderRadius: '24px',
           padding: '32px 40px',
           display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '32px',
           flexWrap: 'wrap',
-          marginBottom: '48px'
+          marginBottom: '48px',
+          boxShadow: '0 4px 20px rgba(0,0,0,0.03)'
         }}>
           <div>
-            <h4 style={{ fontSize: '18px', fontWeight: '700', color: 'white', marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              Get exclusive offers & updates <img src="https://img.icons8.com/3d-fluency/94/gift.png" alt="" style={{width: '24px'}} />
+            <h4 style={{ fontSize: '18px', fontWeight: '800', color: '#111827', marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              Subscribe to our Newsletter
             </h4>
-            <p style={{ fontSize: '14px', color: 'var(--color-text-muted)' }}>
-              Join 50K+ subscribers for tips, offers and new service alerts.
+            <p style={{ fontSize: '14px', color: '#6B7280' }}>
+              Get updates on new services, features, and exclusive offers.
             </p>
           </div>
-          <div style={{ display: 'flex', gap: '0', flexShrink: 0 }}>
+          <div style={{ display: 'flex', gap: '8px', flexShrink: 0 }}>
             <input
               type="email"
               placeholder="Enter your email"
               style={{
-                background: 'rgba(255,255,255,0.06)',
-                border: '1px solid rgba(255,255,255,0.12)',
-                borderRight: 'none',
-                borderRadius: '50px 0 0 50px',
+                background: '#F9FAFB',
+                border: '1px solid #E5E7EB',
+                borderRadius: '12px',
                 padding: '12px 20px',
-                fontSize: '14px', color: 'white',
-                outline: 'none', width: '240px',
+                fontSize: '14px', color: '#111827',
+                outline: 'none', width: '260px',
                 fontFamily: 'var(--font-body)'
               }}
             />
-            <button className="btn-primary" style={{ borderRadius: '0 50px 50px 0', whiteSpace: 'nowrap' }}>
+            <button style={{ 
+              background: '#111827', color: 'white', border: 'none',
+              padding: '0 24px', borderRadius: '12px', fontSize: '14px', fontWeight: '700',
+              cursor: 'pointer', whiteSpace: 'nowrap'
+            }}>
               Subscribe
             </button>
           </div>
         </div>
 
         {/* Bottom bar */}
-        <div className="divider" style={{ marginBottom: '28px' }} />
+        <div style={{ height: '1px', background: '#E5E7EB', marginBottom: '28px' }} />
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
-          <p style={{ fontSize: '13px', color: 'var(--color-text-muted)' }}>
-            © {new Date().getFullYear()} Profam Technologies Pvt. Ltd. All rights reserved.
+          <p style={{ fontSize: '14px', color: '#6B7280' }}>
+            © {new Date().getFullYear()} ProFam Technologies Pvt. Ltd. All rights reserved.
           </p>
           <div style={{ display: 'flex', gap: '24px' }}>
-            {['Privacy', 'Terms', 'Cookies'].map(link => (
-              <a key={link} href="#" style={{ fontSize: '13px', color: 'var(--color-text-muted)', textDecoration: 'none' }}>
+            {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map(link => (
+              <a key={link} href="#" style={{ fontSize: '14px', color: '#6B7280', textDecoration: 'none', fontWeight: '500' }}>
                 {link}
               </a>
             ))}
           </div>
-          <p style={{ fontSize: '13px', color: 'var(--color-text-muted)', display: 'flex', alignItems: 'center', gap: '4px' }}>
-            Made with <img src="https://img.icons8.com/3d-fluency/94/star.png" alt="" style={{width: '16px'}} /> in India
-          </p>
         </div>
       </div>
 

@@ -2,66 +2,12 @@
 import { useEffect, useRef, useState } from 'react'
 
 const TESTIMONIALS = [
-  {
-    name: 'Priya Sharma',
-    city: 'Mumbai',
-    role: 'Working Professional',
-    avatar: 'PS',
-    rating: 5,
-    service: 'Home Cleaning',
-    text: "Profam has literally changed my life. I work long hours and coming home to a clean apartment used to stress me out. Now I book a cleaning every Sunday night and it's ready Monday morning. The cleaner Meena is absolutely thorough and friendly.",
-    color: '#00c6ff'
-  },
-  {
-    name: 'Arjun Mehta',
-    city: 'Delhi',
-    role: 'Software Engineer',
-    avatar: 'AM',
-    rating: 5,
-    service: 'Electrical Repair',
-    text: "Called an electrician at 9 PM for a power socket that stopped working. The Profam electrician arrived within 40 minutes, diagnosed and fixed the issue in 20 minutes. Clean work, transparent billing. Absolutely recommended.",
-    color: '#f59e0b'
-  },
-  {
-    name: 'Kavitha Nair',
-    city: 'Bangalore',
-    role: 'Homemaker',
-    avatar: 'KN',
-    rating: 5,
-    service: 'Beauty & Spa',
-    text: "I booked the home salon service for my mother's birthday and the beautician was so professional and warm. Full facial, hair spa, and pedicure — all at home. My mother was thrilled! The quality was better than actual salons.",
-    color: '#ec4899'
-  },
-  {
-    name: 'Rohit Singhania',
-    city: 'Pune',
-    role: 'Business Owner',
-    avatar: 'RS',
-    rating: 5,
-    service: 'AC Service',
-    text: "My AC broke down in peak summer. Profam had a technician at my place within 2 hours. He serviced the unit, recharged the gas, and gave me a detailed report of the AC's health. Professional, on-time, and worth every rupee.",
-    color: '#06b6d4'
-  },
-  {
-    name: 'Sunita Gupta',
-    city: 'Hyderabad',
-    role: 'Teacher',
-    avatar: 'SG',
-    rating: 5,
-    service: 'Pest Control',
-    text: "We had a cockroach problem for months. Profam sent a certified pest control team who treated the entire house with pet-safe products. It's been 3 months and not a single cockroach. Worth every penny!",
-    color: '#84cc16'
-  },
-  {
-    name: 'Deepak Verma',
-    city: 'Chennai',
-    role: 'Doctor',
-    avatar: 'DV',
-    rating: 5,
-    service: 'Plumbing',
-    text: "The plumber fixed our kitchen pipe leak in under 30 minutes with zero mess. He even pointed out a potential issue with the bathroom pipes that could have become a problem later. Proactive and skilled — exactly what you want.",
-    color: '#10b981'
-  },
+  { name: 'Priya Sharma', city: 'Mumbai', role: 'Working Professional', avatar: 'PS', rating: 5, service: 'Home Cleaning', text: 'Profam has literally changed my life. Coming home to a spotlessly clean apartment after a long day is amazing. The cleaner is so thorough and friendly.' },
+  { name: 'Arjun Mehta', city: 'Delhi', role: 'Software Engineer', avatar: 'AM', rating: 5, service: 'Electrical Repair', text: 'Called at 9 PM for a broken power socket. The Profam electrician arrived in 40 minutes, fixed it in 20. Transparent billing. Absolutely recommended!' },
+  { name: 'Kavitha Nair', city: 'Bangalore', role: 'Homemaker', avatar: 'KN', rating: 5, service: 'Beauty & Spa', text: 'Booked a home salon for my mother\'s birthday. The beautician was so professional. Full facial, hair spa, pedicure — better than actual salons!' },
+  { name: 'Rohit Singhania', city: 'Pune', role: 'Business Owner', avatar: 'RS', rating: 5, service: 'AC Service', text: 'My AC broke in peak summer. Profam had a technician at my place within 2 hours. He serviced the unit and gave a detailed health report. Worth every rupee.' },
+  { name: 'Sunita Gupta', city: 'Hyderabad', role: 'Teacher', avatar: 'SG', rating: 5, service: 'Pest Control', text: 'Had a cockroach problem for months. Profam\'s certified team treated the entire house with pet-safe products. 3 months later — not a single cockroach!' },
+  { name: 'Deepak Verma', city: 'Chennai', role: 'Doctor', avatar: 'DV', rating: 5, service: 'Plumbing', text: 'Plumber fixed the kitchen pipe in 30 minutes with zero mess. Even spotted a potential issue in the bathroom. Proactive and skilled — exactly what you want.' },
 ]
 
 export default function Testimonials() {
@@ -84,156 +30,123 @@ export default function Testimonials() {
     return () => clearInterval(timer)
   }, [])
 
-  return (
-    <section id="testimonials" ref={sectionRef} className="section" style={{ position: 'relative', overflow: 'hidden' }}>
-      <div className="orb orb-gold" style={{ width: '400px', height: '400px', top: '-100px', left: '-100px', opacity: 0.06 }} />
-      <div className="orb orb-purple" style={{ width: '300px', height: '300px', bottom: '-50px', right: '-50px', opacity: 0.07 }} />
+  const active = TESTIMONIALS[activeIdx]
 
-      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 32px', position: 'relative' }}>
+  return (
+    <section id="testimonials" ref={sectionRef} className="section" style={{ background: '#F9FAFB' }}>
+      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 32px' }}>
+
         {/* Header */}
-        <div style={{ textAlign: 'center', marginBottom: '72px' }}>
-          <div className="badge" style={{ marginBottom: '20px', justifyContent: 'center', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <img src="https://img.icons8.com/3d-fluency/94/speech-bubble-with-dots.png" alt="" style={{width: '20px'}} /> Real Reviews
+        <div style={{ textAlign: 'center', marginBottom: '56px' }}>
+          <div style={{
+            display: 'inline-flex', alignItems: 'center', gap: '6px',
+            background: '#EEF2FF', border: '1px solid #C7D2FE',
+            padding: '5px 14px', borderRadius: '50px',
+            fontSize: '13px', fontWeight: '600', color: '#3B2EA3',
+            marginBottom: '16px'
+          }}>
+            💬 Customer Reviews
           </div>
           <h2 style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(36px, 5vw, 64px)',
-            fontWeight: '700', color: 'white',
-            lineHeight: '1.1', marginBottom: '20px',
-            letterSpacing: '-1px'
+            fontFamily: 'var(--font-body)',
+            fontSize: 'clamp(30px, 4vw, 48px)',
+            fontWeight: '800', color: '#111827',
+            letterSpacing: '-1.5px', marginBottom: '12px'
           }}>
-            50,000+ Happy{' '}
-            <span className="gradient-text">Homes</span>
+            50,000+ happy <span style={{ color: '#3B2EA3' }}>homes.</span>
           </h2>
-          <p style={{ fontSize: '17px', color: 'var(--color-text-muted)', maxWidth: '500px', margin: '0 auto', lineHeight: '1.7' }}>
-            Don't just take our word for it. Here's what real Profam customers say.
+          <p style={{ fontSize: '17px', color: '#6B7280', maxWidth: '460px', margin: '0 auto' }}>
+            Don't just take our word for it.
           </p>
         </div>
 
-        {/* Featured testimonial */}
+        {/* Featured big testimonial */}
         <div style={{
-          background: 'linear-gradient(135deg, rgba(0,198,255,0.07), rgba(124,58,237,0.07))',
-          border: '1px solid rgba(255,255,255,0.1)',
-          borderRadius: '28px',
+          background: '#FFFFFF',
+          borderRadius: '24px',
           padding: '48px',
-          marginBottom: '40px',
-          position: 'relative', overflow: 'hidden',
+          marginBottom: '32px',
+          boxShadow: '0 8px 40px rgba(0,0,0,0.06)',
+          border: '1px solid #F3F4F6',
           opacity: visible ? 1 : 0,
-          transform: visible ? 'none' : 'translateY(30px)',
-          transition: 'all 0.8s ease'
+          transform: visible ? 'none' : 'translateY(20px)',
+          transition: 'all 0.7s ease'
         }}>
-          <div style={{
-            position: 'absolute', top: '20px', left: '40px',
-            fontSize: '120px', lineHeight: '1', color: 'rgba(0,198,255,0.06)',
-            fontFamily: 'var(--font-display)'
-          }}>"</div>
-
-          <div style={{ position: 'relative', display: 'grid', gridTemplateColumns: '1fr auto', gap: '40px', alignItems: 'start' }}>
+          <div style={{ fontSize: '64px', lineHeight: '1', color: '#EEF2FF', fontFamily: 'Georgia, serif', marginBottom: '4px' }}>"</div>
+          <blockquote style={{
+            fontSize: 'clamp(18px, 2.5vw, 24px)',
+            color: '#111827', lineHeight: '1.65',
+            fontStyle: 'italic', marginBottom: '28px',
+            fontFamily: 'Georgia, serif', fontWeight: '400'
+          }}>
+            {active.text}
+          </blockquote>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
+            <div style={{
+              width: '52px', height: '52px',
+              background: 'linear-gradient(135deg, #3B2EA3, #1E1B4B)',
+              borderRadius: '50%', display: 'flex', alignItems: 'center',
+              justifyContent: 'center', fontSize: '16px', fontWeight: '800', color: 'white'
+            }}>{active.avatar}</div>
             <div>
-              <div className="stars" style={{ fontSize: '20px', marginBottom: '16px' }}>★★★★★</div>
-              <blockquote style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(18px, 2.5vw, 26px)',
-                color: 'white',
-                lineHeight: '1.6',
-                fontStyle: 'italic',
-                fontWeight: '300',
-                marginBottom: '28px'
-              }}>
-                "{TESTIMONIALS[activeIdx].text}"
-              </blockquote>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                <div style={{
-                  width: '52px', height: '52px',
-                  background: `linear-gradient(135deg, ${TESTIMONIALS[activeIdx].color}, ${TESTIMONIALS[activeIdx].color}88)`,
-                  borderRadius: '50%',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: '16px', fontWeight: '700', color: 'white'
-                }}>
-                  {TESTIMONIALS[activeIdx].avatar}
-                </div>
-                <div>
-                  <div style={{ fontSize: '16px', fontWeight: '700', color: 'white' }}>{TESTIMONIALS[activeIdx].name}</div>
-                  <div style={{ fontSize: '13px', color: 'var(--color-text-muted)' }}>
-                    {TESTIMONIALS[activeIdx].role} • {TESTIMONIALS[activeIdx].city}
-                  </div>
-                </div>
-                <div style={{
-                  marginLeft: 'auto',
-                  background: `${TESTIMONIALS[activeIdx].color}18`,
-                  border: `1px solid ${TESTIMONIALS[activeIdx].color}33`,
-                  borderRadius: '20px', padding: '4px 14px',
-                  fontSize: '12px', color: TESTIMONIALS[activeIdx].color, fontWeight: '600'
-                }}>
-                  {TESTIMONIALS[activeIdx].service}
-                </div>
-              </div>
+              <div style={{ fontSize: '16px', fontWeight: '800', color: '#111827' }}>{active.name}</div>
+              <div style={{ fontSize: '13px', color: '#9CA3AF' }}>{active.role} · {active.city}</div>
             </div>
+            <div style={{ marginLeft: 'auto', display: 'flex', gap: '2px' }}>
+              {[...Array(5)].map((_, i) => <span key={i} style={{ color: '#F59E0B', fontSize: '18px' }}>★</span>)}
+            </div>
+            <div style={{
+              background: '#EEF2FF', border: '1px solid #C7D2FE',
+              borderRadius: '8px', padding: '4px 12px',
+              fontSize: '12px', fontWeight: '700', color: '#3B2EA3'
+            }}>{active.service}</div>
           </div>
         </div>
 
-        {/* Navigation dots + mini cards */}
-        <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', marginBottom: '48px' }}>
+        {/* Dot navigation */}
+        <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', marginBottom: '40px' }}>
           {TESTIMONIALS.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setActiveIdx(i)}
-              style={{
-                width: activeIdx === i ? '32px' : '8px',
-                height: '8px',
-                borderRadius: '4px',
-                border: 'none',
-                background: activeIdx === i ? 'var(--color-accent)' : 'rgba(255,255,255,0.2)',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease',
-                padding: 0
-              }}
-            />
+            <button key={i} onClick={() => setActiveIdx(i)} style={{
+              width: activeIdx === i ? '28px' : '8px', height: '8px',
+              borderRadius: '4px', border: 'none', cursor: 'pointer',
+              background: activeIdx === i ? '#3B2EA3' : '#D1D5DB',
+              transition: 'all 0.3s ease', padding: 0
+            }} />
           ))}
         </div>
 
-        {/* All review cards */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-          gap: '20px'
-        }}>
+        {/* Cards grid */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '20px' }}>
           {TESTIMONIALS.map((t, i) => (
-            <div
-              key={t.name}
-              onClick={() => setActiveIdx(i)}
-              className="testimonial-card"
-              style={{
-                cursor: 'pointer',
-                opacity: visible ? 1 : 0,
-                transform: visible ? 'none' : 'translateY(30px)',
-                transition: `all 0.6s ease ${i * 0.08}s`,
-                borderColor: activeIdx === i ? `${t.color}44` : 'rgba(0,198,255,0.12)',
-                background: activeIdx === i ? `${t.color}08` : undefined,
-              }}
-            >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '14px' }}>
+            <div key={t.name} onClick={() => setActiveIdx(i)} style={{
+              background: '#FFFFFF', borderRadius: '18px', padding: '24px',
+              cursor: 'pointer', border: activeIdx === i ? '2px solid #3B2EA3' : '2px solid #F3F4F6',
+              boxShadow: activeIdx === i ? '0 8px 28px rgba(59,46,163,0.1)' : '0 2px 8px rgba(0,0,0,0.04)',
+              opacity: visible ? 1 : 0,
+              transform: visible ? 'none' : 'translateY(20px)',
+              transition: `all 0.5s ease ${i * 0.07}s`,
+            }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                   <div style={{
                     width: '40px', height: '40px',
-                    background: `linear-gradient(135deg, ${t.color}, ${t.color}88)`,
-                    borderRadius: '50%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: '13px', fontWeight: '700', color: 'white', flexShrink: 0
+                    background: 'linear-gradient(135deg, #3B2EA3, #1E1B4B)',
+                    borderRadius: '50%', display: 'flex', alignItems: 'center',
+                    justifyContent: 'center', fontSize: '12px', fontWeight: '800', color: 'white', flexShrink: 0
                   }}>{t.avatar}</div>
                   <div>
-                    <div style={{ fontSize: '14px', fontWeight: '700', color: 'white' }}>{t.name}</div>
-                    <div style={{ fontSize: '11px', color: 'var(--color-text-muted)' }}>{t.city}</div>
+                    <div style={{ fontSize: '14px', fontWeight: '700', color: '#111827' }}>{t.name}</div>
+                    <div style={{ fontSize: '11px', color: '#9CA3AF' }}>{t.city}</div>
                   </div>
                 </div>
-                <div className="stars" style={{ fontSize: '12px' }}>★★★★★</div>
+                <div style={{ display: 'flex', gap: '1px' }}>
+                  {[...Array(5)].map((_, j) => <span key={j} style={{ color: '#F59E0B', fontSize: '12px' }}>★</span>)}
+                </div>
               </div>
-              <p style={{ fontSize: '13px', color: 'var(--color-text-muted)', lineHeight: '1.65', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+              <p style={{ fontSize: '13px', color: '#6B7280', lineHeight: '1.6', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden', marginBottom: '12px' }}>
                 "{t.text}"
               </p>
-              <div style={{ marginTop: '12px', fontSize: '11px', color: t.color, fontWeight: '600' }}>
-                {t.service} ✓
-              </div>
+              <div style={{ fontSize: '11px', color: '#3B2EA3', fontWeight: '700' }}>✔ {t.service}</div>
             </div>
           ))}
         </div>

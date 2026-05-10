@@ -5,7 +5,7 @@ import HowItWorks from '@/components/HowItWorks'
 import WhyChooseUs from '@/components/WhyChooseUs'
 import AppShowcase from '@/components/AppShowcase'
 import Testimonials from '@/components/Testimonials'
-import Download from '@/components/Download'
+import AppHero from '@/components/AppHero'
 import Footer from '@/components/Footer'
 
 
@@ -27,7 +27,7 @@ export default function Home() {
         <div className="divider" />
         <Testimonials />
         <div className="divider" />
-        <Download />
+        <AppHero />
       </main>
       <Footer />
     </>

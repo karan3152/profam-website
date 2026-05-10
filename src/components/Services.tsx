@@ -2,21 +2,20 @@
 import { useEffect, useRef, useState } from 'react'
 
 const SERVICES = [
-  { icon: 'https://img.icons8.com/3d-fluency/94/broom.png', title: 'Home Cleaning', desc: 'Thorough deep cleaning by trained professionals using eco-friendly products.', price: 'From ₹399', color: '#00c6ff', popular: true },
-  { icon: 'https://img.icons8.com/3d-fluency/94/wrench.png', title: 'Appliance Repair', desc: 'Quick fixes for all household appliances — washing machines, refrigerators, microwaves.', price: 'From ₹299', color: '#7c3aed', popular: false },
-  { icon: 'https://img.icons8.com/3d-fluency/94/flash-on.png', title: 'Electrical', desc: 'Certified electricians for wiring, switchboards, fans, lights & safety checks.', price: 'From ₹249', color: '#f59e0b', popular: false },
-  { icon: 'https://img.icons8.com/3d-fluency/94/plumbing.png', title: 'Plumbing', desc: 'Expert plumbers for leaks, pipe fitting, bathroom installations & more.', price: 'From ₹199', color: '#10b981', popular: false },
-  { icon: 'https://img.icons8.com/3d-fluency/94/air-conditioner.png', title: 'AC Services', desc: 'AC installation, servicing, gas refilling & repair by certified technicians.', price: 'From ₹349', color: '#06b6d4', popular: true },
-  { icon: 'https://img.icons8.com/3d-fluency/94/lotus.png', title: 'Beauty & Spa', desc: 'Salon-grade beauty treatments at home — facials, haircuts, massages & more.', price: 'From ₹499', color: '#ec4899', popular: false },
-  { icon: 'https://img.icons8.com/3d-fluency/94/hammer.png', title: 'Carpentry', desc: 'Furniture assembly, custom woodwork, door/window repair & installations.', price: 'From ₹299', color: '#f97316', popular: false },
-  { icon: 'https://img.icons8.com/3d-fluency/94/bug.png', title: 'Pest Control', desc: 'Safe & effective pest elimination for cockroaches, mosquitoes, rats & more.', price: 'From ₹599', color: '#84cc16', popular: false },
-  { icon: 'https://img.icons8.com/3d-fluency/94/paint-roller.png', title: 'Painting', desc: 'Interior & exterior painting with premium paints and expert finishers.', price: 'From ₹8/sqft', color: '#a855f7', popular: false },
+  { image: 'https://img.icons8.com/3d-fluency/188/vacuum-cleaner.png', title: 'Full Home Cleaning', desc: 'Deep cleaning by trained professionals using eco-friendly products.', price: 'From ₹399', popular: true },
+  { image: 'https://img.icons8.com/3d-fluency/188/bathtub.png', title: 'Bathroom Cleaning', desc: 'Sparkling clean bathrooms with specialized disinfectants.', price: 'From ₹199', popular: false },
+  { image: 'https://img.icons8.com/3d-fluency/188/fridge.png', title: 'Fridge Cleaning', desc: 'Hygienic cleaning for your refrigerator and freezer.', price: 'From ₹149', popular: false },
+  { image: 'https://img.icons8.com/3d-fluency/188/washing-machine.png', title: 'Appliance Repair', desc: 'Expert repair for all your household appliances.', price: 'From ₹299', popular: false },
+  { image: 'https://img.icons8.com/3d-fluency/188/air-conditioner.png', title: 'AC Services', desc: 'Servicing, gas refill, and expert AC repairs.', price: 'From ₹349', popular: true },
+  { image: 'https://img.icons8.com/3d-fluency/188/lotus.png', title: 'Beauty & Spa', desc: 'Salon-grade treatments in the comfort of your home.', price: 'From ₹499', popular: false },
+  { image: 'https://img.icons8.com/3d-fluency/188/hammer.png', title: 'Carpentry', desc: 'Furniture repair and custom woodwork services.', price: 'From ₹299', popular: false },
+  { image: 'https://img.icons8.com/3d-fluency/188/bug.png', title: 'Pest Control', desc: 'Effective and safe pest elimination services.', price: 'From ₹599', popular: false },
 ]
 
 export default function Services() {
-  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null)
   const sectionRef = useRef<HTMLElement>(null)
   const [visible, setVisible] = useState(false)
+  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null)
 
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => {
@@ -27,134 +26,151 @@ export default function Services() {
   }, [])
 
   return (
-    <section id="services" ref={sectionRef} className="section" style={{ position: 'relative', overflow: 'hidden' }}>
-      {/* Background orb */}
-      <div className="orb orb-blue" style={{ width: '500px', height: '500px', top: '-100px', right: '-150px', opacity: 0.08 }} />
-
+    <section id="services" ref={sectionRef} className="section" style={{ background: '#FFFFFF', position: 'relative' }}>
       <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 32px' }}>
+
         {/* Header */}
-        <div style={{ textAlign: 'center', marginBottom: '72px' }}>
-          <div className="badge" style={{ marginBottom: '20px', justifyContent: 'center', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <img src="https://img.icons8.com/3d-fluency/94/home.png" alt="" style={{width: '20px'}} /> Our Services
-          </div>
-          <h2 style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(36px, 5vw, 64px)',
-            fontWeight: '700', color: 'white',
-            lineHeight: '1.1', marginBottom: '20px',
-            letterSpacing: '-1px'
+        <div style={{ marginBottom: '56px' }}>
+          <div style={{
+            display: 'inline-flex', alignItems: 'center', gap: '6px',
+            background: '#EEF2FF', border: '1px solid #C7D2FE',
+            padding: '5px 14px', borderRadius: '50px',
+            fontSize: '13px', fontWeight: '600', color: '#3B2EA3',
+            marginBottom: '16px'
           }}>
-            Everything Your Home{' '}
-            <span className="gradient-text">Needs</span>
-          </h2>
-          <p style={{ fontSize: '17px', color: 'var(--color-text-muted)', maxWidth: '560px', margin: '0 auto', lineHeight: '1.7' }}>
-            From deep cleaning to electrical work, our verified professionals handle it all — so you don't have to worry.
-          </p>
+            🏡 Our Services
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '16px' }}>
+            <div>
+              <h2 style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: 'clamp(30px, 4vw, 48px)',
+                fontWeight: '800', color: '#111827',
+                lineHeight: '1.1', letterSpacing: '-1.5px',
+                marginBottom: '12px'
+              }}>
+                Everything your home needs,<br />
+                <span style={{ color: '#3B2EA3' }}>in one app.</span>
+              </h2>
+              <p style={{ fontSize: '16px', color: '#6B7280', lineHeight: '1.6', maxWidth: '500px' }}>
+                From deep cleaning to AC repair — book any service in under 60 seconds with transparent, upfront pricing.
+              </p>
+            </div>
+            <a href="#download" style={{
+              display: 'inline-flex', alignItems: 'center', gap: '8px',
+              background: '#F5F3FF', color: '#3B2EA3',
+              padding: '12px 24px', borderRadius: '10px',
+              fontSize: '14px', fontWeight: '700', textDecoration: 'none',
+              border: '1px solid #C7D2FE',
+              whiteSpace: 'nowrap',
+              transition: 'all 0.2s ease'
+            }}
+              onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = '#EEF2FF'}
+              onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = '#F5F3FF'}
+            >
+              View All 50+ Services →
+            </a>
+          </div>
         </div>
 
         {/* Grid */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-          gap: '24px'
+          gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+          gap: '16px'
         }}>
           {SERVICES.map((service, i) => (
             <div
               key={service.title}
-              className="service-card glass"
               onMouseEnter={() => setHoveredIdx(i)}
               onMouseLeave={() => setHoveredIdx(null)}
               style={{
-                padding: '28px',
+                background: '#FFFFFF',
+                borderRadius: '20px',
+                padding: '12px',
                 cursor: 'pointer',
                 position: 'relative',
                 overflow: 'hidden',
                 opacity: visible ? 1 : 0,
-                transform: visible ? 'none' : 'translateY(30px)',
-                transition: `all 0.6s ease ${i * 0.07}s`,
-                border: hoveredIdx === i ? `1px solid ${service.color}44` : '1px solid rgba(255,255,255,0.07)',
+                transform: visible ? 'none' : 'translateY(20px)',
+                transition: `all 0.5s ease ${i * 0.05}s`,
+                border: hoveredIdx === i ? '2px solid #3B2EA3' : '2px solid #F3F4F6',
+                boxShadow: hoveredIdx === i ? '0 8px 32px rgba(59,46,163,0.12)' : '0 2px 8px rgba(0,0,0,0.04)',
+                display: 'flex', flexDirection: 'column', gap: '12px'
               }}
             >
               {/* Popular badge */}
               {service.popular && (
                 <div style={{
-                  position: 'absolute', top: '16px', right: '16px',
-                  background: 'linear-gradient(135deg, #f59e0b, #ef4444)',
-                  borderRadius: '20px', padding: '4px 12px',
-                  fontSize: '10px', fontWeight: '700',
-                  color: 'white', letterSpacing: '0.5px',
-                  textTransform: 'uppercase'
-                }}>Popular</div>
+                  position: 'absolute', top: '12px', right: '12px',
+                  background: '#3B2EA3', borderRadius: '6px',
+                  padding: '2px 8px', fontSize: '10px', fontWeight: '700',
+                  color: 'white', letterSpacing: '0.3px'
+                }}>POPULAR</div>
               )}
 
-              {/* Hover glow */}
-              {hoveredIdx === i && (
-                <div style={{
-                  position: 'absolute', inset: 0,
-                  background: `radial-gradient(circle at 30% 40%, ${service.color}08, transparent 70%)`,
-                  pointerEvents: 'none'
-                }} />
-              )}
-
-              {/* Icon */}
+              {/* Image area */}
               <div style={{
-                width: '56px', height: '56px',
-                background: `${service.color}18`,
-                border: `1px solid ${service.color}30`,
-                borderRadius: '16px',
+                background: hoveredIdx === i ? '#EEF2FF' : '#F9FAFB',
+                borderRadius: '14px', aspectRatio: '1',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontSize: '26px', marginBottom: '20px',
-                transition: 'all 0.3s ease',
-                boxShadow: hoveredIdx === i ? `0 8px 20px ${service.color}30` : 'none',
-                overflow: 'hidden'
+                overflow: 'hidden', transition: 'background 0.3s ease'
               }}>
-                <img 
-                  src={service.icon} 
-                  alt={service.title} 
-                  style={{ 
-                    width: '36px', 
-                    height: '36px', 
-                    objectFit: 'contain',
-                    filter: hoveredIdx === i ? 'drop-shadow(0 4px 8px rgba(0,0,0,0.2))' : 'none',
-                    transition: 'transform 0.3s ease'
-                  }} 
-                />
+                <img src={service.image} alt={service.title} style={{
+                  width: '80%', height: '80%', objectFit: 'contain',
+                  transform: hoveredIdx === i ? 'scale(1.08)' : 'scale(1)',
+                  transition: 'transform 0.4s ease'
+                }} />
               </div>
 
-              <h3 style={{
-                fontSize: '19px', fontWeight: '700',
-                color: 'white', marginBottom: '10px',
-                fontFamily: 'var(--font-body)'
-              }}>{service.title}</h3>
-
-              <p style={{
-                fontSize: '14px', color: 'var(--color-text-muted)',
-                lineHeight: '1.7', marginBottom: '20px'
-              }}>{service.desc}</p>
-
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ color: service.color, fontWeight: '700', fontSize: '15px' }}>
-                  {service.price}
-                </span>
-                <div style={{
-                  width: '32px', height: '32px',
-                  background: `${service.color}18`,
-                  borderRadius: '50%',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  color: service.color, fontSize: '16px',
-                  transition: 'all 0.3s ease',
-                  transform: hoveredIdx === i ? 'translateX(4px)' : 'none'
-                }}>→</div>
+              {/* Text */}
+              <div style={{ padding: '4px 6px 6px' }}>
+                <h3 style={{ fontSize: '14px', fontWeight: '700', color: '#111827', marginBottom: '6px', lineHeight: '1.3' }}>
+                  {service.title}
+                </h3>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ color: '#3B2EA3', fontWeight: '700', fontSize: '13px' }}>{service.price}</span>
+                  <span style={{
+                    color: hoveredIdx === i ? '#3B2EA3' : '#9CA3AF',
+                    fontSize: '16px', transition: 'all 0.2s ease',
+                    transform: hoveredIdx === i ? 'translateX(3px)' : 'none',
+                    display: 'inline-block'
+                  }}>→</span>
+                </div>
               </div>
             </div>
           ))}
         </div>
 
-        {/* View all */}
-        <div style={{ textAlign: 'center', marginTop: '48px' }}>
-          <a href="#download" className="btn-outline" style={{ textDecoration: 'none' }}>
-            View All 50+ Services →
-          </a>
+        {/* Bottom CTA strip */}
+        <div style={{
+          marginTop: '48px',
+          background: 'linear-gradient(135deg, #3B2EA3, #1E1B4B)',
+          borderRadius: '20px',
+          padding: '32px 40px',
+          display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+          flexWrap: 'wrap', gap: '20px'
+        }}>
+          <div>
+            <div style={{ fontSize: '22px', fontWeight: '800', color: '#FFFFFF', marginBottom: '6px' }}>
+              Can't find what you're looking for?
+            </div>
+            <p style={{ fontSize: '15px', color: 'rgba(255,255,255,0.7)', margin: 0 }}>
+              We offer 50+ services. Our team will help you book the right one.
+            </p>
+          </div>
+          <div style={{ display: 'flex', gap: '12px', flexShrink: 0 }}>
+            <a href="tel:+911800000000" style={{
+              background: 'rgba(255,255,255,0.15)', color: 'white',
+              padding: '12px 24px', borderRadius: '10px', fontSize: '15px',
+              fontWeight: '700', textDecoration: 'none', border: '1px solid rgba(255,255,255,0.2)'
+            }}>📞 Call Us</a>
+            <a href="#download" style={{
+              background: '#FFFFFF', color: '#3B2EA3',
+              padding: '12px 24px', borderRadius: '10px', fontSize: '15px',
+              fontWeight: '700', textDecoration: 'none'
+            }}>Explore All Services →</a>
+          </div>
         </div>
       </div>
     </section>
