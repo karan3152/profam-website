@@ -111,28 +111,30 @@ export default function Hero() {
               background: '#FFFFFF',
               border: '2px solid #E5E7EB',
               borderRadius: '14px',
-              padding: '8px 8px 8px 20px',
-              display: 'flex', alignItems: 'center', gap: '12px',
+              padding: '8px',
+              display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap',
               boxShadow: '0 8px 32px rgba(0,0,0,0.08)',
               marginBottom: '32px',
               maxWidth: '500px'
             }}>
-              <span style={{ fontSize: '20px' }}>📍</span>
-              <input
-                value={pincode}
-                onChange={e => setPincode(e.target.value)}
-                placeholder="Enter your pincode or area..."
-                style={{
-                  flex: 1, border: 'none', outline: 'none',
-                  fontSize: '15px', color: '#111827',
-                  background: 'transparent', fontFamily: 'var(--font-body)'
-                }}
-              />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flex: '1 1 200px', paddingLeft: '12px' }}>
+                <span style={{ fontSize: '20px' }}>📍</span>
+                <input
+                  value={pincode}
+                  onChange={e => setPincode(e.target.value)}
+                  placeholder="Enter your pincode or area..."
+                  style={{
+                    flex: 1, border: 'none', outline: 'none',
+                    fontSize: '15px', color: '#111827',
+                    background: 'transparent', fontFamily: 'var(--font-body)', width: '100%'
+                  }}
+                />
+              </div>
               <button style={{
                 background: 'linear-gradient(135deg, #3B2EA3, #1E1B4B)',
                 color: 'white', padding: '12px 24px', borderRadius: '10px',
                 border: 'none', fontSize: '15px', fontWeight: '700', cursor: 'pointer',
-                whiteSpace: 'nowrap',
+                whiteSpace: 'nowrap', flex: '1 1 auto',
                 boxShadow: '0 4px 12px rgba(59,46,163,0.3)'
               }}>
                 Book Now →
@@ -198,7 +200,7 @@ export default function Hero() {
               border: '1px solid #F3F4F6',
             }}>
               <div style={{ fontSize: '13px', fontWeight: '700', color: '#6B7280', marginBottom: '16px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Popular Services</div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(100px, 1fr))', gap: '10px' }}>
                 {POPULAR_SERVICES.map(s => (
                   <div key={s.name} style={{
                     background: '#F9FAFB',
@@ -231,6 +233,7 @@ export default function Hero() {
               background: 'linear-gradient(135deg, #3B2EA3, #1E1B4B)',
               borderRadius: '20px', padding: '18px 24px',
               display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+              flexWrap: 'wrap', gap: '16px',
               boxShadow: '0 8px 32px rgba(59,46,163,0.3)'
             }}>
               <div>
@@ -240,7 +243,7 @@ export default function Hero() {
                 </div>
                 <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', marginTop: '4px' }}>74,712 ratings</div>
               </div>
-              <div style={{ textAlign: 'right' }}>
+              <div style={{ textAlign: 'left' }}>
                 <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.6)', marginBottom: '4px' }}>This Month</div>
                 <div style={{ fontSize: '28px', fontWeight: '800', color: '#FFFFFF', lineHeight: '1' }}>8,240</div>
                 <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', marginTop: '4px' }}>bookings done</div>
@@ -265,7 +268,6 @@ export default function Hero() {
       <style>{`
         @media (max-width: 900px) {
           section > div > div { grid-template-columns: 1fr !important; }
-          section > div > div > div:last-child { display: none !important; }
         }
       `}</style>
     </section>

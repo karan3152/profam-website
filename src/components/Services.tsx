@@ -27,8 +27,36 @@ export default function Services() {
   }, [])
 
   return (
-    <section id="services" ref={sectionRef} className="section" style={{ background: '#FFFFFF', position: 'relative' }}>
-      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 32px' }}>
+    <>
+      <style>{`
+        @media (max-width: 640px) {
+          .services-header {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+          }
+          .view-all-btn {
+            width: 100% !important;
+            justify-content: center !important;
+          }
+          .bottom-cta {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            padding: 24px !important;
+          }
+          .bottom-cta-buttons {
+            width: 100% !important;
+            flex-direction: column !important;
+          }
+          .bottom-cta-buttons a {
+            width: 100% !important;
+            text-align: center !important;
+            justify-content: center !important;
+            display: flex !important;
+          }
+        }
+      `}</style>
+      <section id="services" ref={sectionRef} className="section" style={{ background: '#FFFFFF', position: 'relative' }}>
+        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 32px' }}>
 
         {/* Header */}
         <div style={{ marginBottom: '56px' }}>
@@ -41,7 +69,7 @@ export default function Services() {
           }}>
             🏡 Our Services
           </div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '16px' }}>
+          <div className="services-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '16px' }}>
             <div>
               <h2 style={{
                 fontFamily: 'var(--font-body)',
@@ -57,7 +85,7 @@ export default function Services() {
                 From deep cleaning to AC repair — book any service in under 60 seconds with transparent, upfront pricing.
               </p>
             </div>
-            <Link href="/all-services" style={{
+            <Link href="/all-services" className="view-all-btn" style={{
               display: 'inline-flex', alignItems: 'center', gap: '8px',
               background: '#F5F3FF', color: '#3B2EA3',
               padding: '12px 24px', borderRadius: '10px',
@@ -147,7 +175,7 @@ export default function Services() {
         </div>
 
         {/* Bottom CTA strip */}
-        <div style={{
+        <div className="bottom-cta" style={{
           marginTop: '48px',
           background: 'linear-gradient(135deg, #3B2EA3, #1E1B4B)',
           borderRadius: '20px',
@@ -163,7 +191,7 @@ export default function Services() {
               We offer 50+ services. Our team will help you book the right one.
             </p>
           </div>
-          <div style={{ display: 'flex', gap: '12px', flexShrink: 0 }}>
+          <div className="bottom-cta-buttons" style={{ display: 'flex', gap: '12px', flexShrink: 0 }}>
             <a href="tel:+911800000000" style={{
               background: 'rgba(255,255,255,0.15)', color: 'white',
               padding: '12px 24px', borderRadius: '10px', fontSize: '15px',
@@ -176,7 +204,8 @@ export default function Services() {
             }}>Explore All Services →</a>
           </div>
         </div>
-      </div>
-    </section>
+        </div>
+      </section>
+    </>
   )
 }

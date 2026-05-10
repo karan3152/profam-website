@@ -117,7 +117,7 @@ export default function Footer() {
               Get updates on new services, features, and exclusive offers.
             </p>
           </div>
-          <div style={{ display: 'flex', gap: '8px', flexShrink: 0 }}>
+          <div style={{ display: 'flex', gap: '8px', flexShrink: 0, flexWrap: 'wrap', width: '100%', maxWidth: '380px' }}>
             <input
               type="email"
               placeholder="Enter your email"
@@ -127,14 +127,14 @@ export default function Footer() {
                 borderRadius: '12px',
                 padding: '12px 20px',
                 fontSize: '14px', color: '#111827',
-                outline: 'none', width: '260px',
+                outline: 'none', width: '100%', flex: '1 1 200px',
                 fontFamily: 'var(--font-body)'
               }}
             />
             <button style={{ 
               background: '#111827', color: 'white', border: 'none',
-              padding: '0 24px', borderRadius: '12px', fontSize: '14px', fontWeight: '700',
-              cursor: 'pointer', whiteSpace: 'nowrap'
+              padding: '12px 24px', borderRadius: '12px', fontSize: '14px', fontWeight: '700',
+              cursor: 'pointer', whiteSpace: 'nowrap', flex: '1 1 auto'
             }}>
               Subscribe
             </button>

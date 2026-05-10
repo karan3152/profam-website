@@ -2,17 +2,28 @@
 
 export default function AppHero() {
   return (
-    <section style={{
-      padding: '120px 0 100px',
-      background: 'url("/hero-bg.png") center/cover no-repeat, #FFF1F2',
-      position: 'relative',
-      overflow: 'hidden',
-      textAlign: 'center',
-      minHeight: '600px',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center'
-    }}>
+    <>
+      <style>{`
+        .hero-section {
+          background: url("/hero-bg.png") center/cover no-repeat, #FAFAFA;
+        }
+        @media (max-width: 768px) {
+          .hero-section {
+            background: url("/hero-bg.png") bottom/contain no-repeat, #FAFAFA !important;
+            padding-bottom: 250px !important;
+          }
+        }
+      `}</style>
+      <section className="hero-section" style={{
+        padding: '120px 0 100px',
+        position: 'relative',
+        overflow: 'hidden',
+        textAlign: 'center',
+        minHeight: '600px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}>
       <div style={{ 
         maxWidth: '550px', 
         margin: '0 auto', 
@@ -100,6 +111,7 @@ export default function AppHero() {
           </a>
         </div>
       </div>
-    </section>
+      </section>
+    </>
   )
 }

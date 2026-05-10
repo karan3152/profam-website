@@ -53,6 +53,15 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
 
   return (
     <>
+      <style>{`
+        .hero-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+        .benefits-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+        @media (max-width: 640px) {
+          .hero-grid { grid-template-columns: 1fr; }
+          .benefits-grid { grid-template-columns: 1fr; }
+          main { padding: 100px 16px 40px !important; }
+        }
+      `}</style>
       <Navbar />
       <main style={{ background: '#FAFAFA', minHeight: '100vh', padding: '120px 32px 60px' }}>
         <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
@@ -86,10 +95,10 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
           </div>
 
           {/* Hero Section */}
-          <div style={{ 
-            background: '#FFFFFF', borderRadius: '24px', padding: '48px', 
+          <div className="hero-grid" style={{ 
+            background: '#FFFFFF', borderRadius: '24px', padding: 'clamp(24px, 5vw, 48px)', 
             boxShadow: '0 4px 20px rgba(0,0,0,0.04)', border: '1px solid #F3F4F6',
-            display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '48px', alignItems: 'center',
+            display: 'grid', gap: '48px', alignItems: 'center',
             marginBottom: '40px'
           }}>
             <div>
@@ -138,7 +147,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
             <h2 style={{ fontSize: '32px', fontWeight: '800', color: '#111827', marginBottom: '24px', letterSpacing: '-0.5px' }}>
               Why choose this service?
             </h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
+            <div className="benefits-grid" style={{ display: 'grid', gap: '24px' }}>
               {service.benefits.map((benefit, i) => (
                 <div key={i} style={{ 
                   background: '#FFFFFF', borderRadius: '16px', padding: '32px',
