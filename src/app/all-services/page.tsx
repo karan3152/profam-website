@@ -37,7 +37,7 @@ export default function AllServicesPage() {
                 href={`/service/${service.slug}`} 
                 key={service.slug}
                 style={{
-                  display: 'flex', gap: '24px', alignItems: 'center',
+                  display: 'flex', gap: '24px', alignItems: 'center', flexWrap: 'wrap',
                   background: '#FFFFFF', borderRadius: '20px', padding: '24px',
                   border: '1px solid #F3F4F6', textDecoration: 'none',
                   boxShadow: '0 4px 12px rgba(0,0,0,0.03)', transition: 'all 0.3s ease',
@@ -55,13 +55,13 @@ export default function AllServicesPage() {
                 }}
               >
                 {/* Left Side - Image */}
-                <div style={{ width: '180px', flexShrink: 0, aspectRatio: '1', borderRadius: '16px', overflow: 'hidden', background: '#F9FAFB' }}>
+                <div style={{ width: '100%', maxWidth: '220px', flex: '1 1 180px', aspectRatio: '1', borderRadius: '16px', overflow: 'hidden', background: '#F9FAFB' }}>
                   <img src={service.image} alt={service.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
 
                 {/* Right Side - Info */}
-                <div style={{ flex: 1 }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
+                <div style={{ flex: '2 1 300px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '12px', marginBottom: '12px' }}>
                     <h2 style={{ fontSize: '24px', fontWeight: '800', color: '#111827', margin: 0 }}>{service.title}</h2>
                     <div style={{ fontSize: '18px', fontWeight: '800', color: '#3B2EA3', background: '#EEF2FF', padding: '6px 16px', borderRadius: '50px' }}>
                       Starts at {service.price}

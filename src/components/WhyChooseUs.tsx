@@ -105,7 +105,7 @@ export default function WhyChooseUs() {
           borderRadius: '24px',
           padding: '48px 40px',
           display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
           gap: '32px',
           opacity: visible ? 1 : 0,
           transition: 'all 0.8s ease 0.5s'

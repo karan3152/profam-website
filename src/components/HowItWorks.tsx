@@ -138,7 +138,7 @@ export default function HowItWorks() {
           background: '#FFFFFF',
           borderRadius: '20px',
           padding: '32px 40px',
-          display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)',
+          display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
           gap: '24px', border: '1px solid #E5E7EB',
           boxShadow: '0 4px 20px rgba(0,0,0,0.04)',
           opacity: visible ? 1 : 0,
