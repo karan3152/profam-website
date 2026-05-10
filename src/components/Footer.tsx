@@ -2,7 +2,7 @@
 
 const FOOTER_LINKS = {
   'Services': ['Home Cleaning', 'Plumbing', 'Electrical', 'AC Services', 'Beauty & Spa', 'Carpentry', 'Pest Control', 'Painting'],
-  'Company': ['About ProFam', 'How It Works', 'Our Promise', 'Careers', 'Press', 'Contact Us'],
+  'Company': ['About ProFom', 'How It Works', 'Our Promise', 'Careers', 'Press', 'Contact Us'],
   'Support': ['Help Center', 'Safety', 'Terms of Service', 'Privacy Policy', 'Refund Policy'],
   'Cities': ['Mumbai', 'Delhi', 'Bangalore', 'Hyderabad', 'Chennai', 'Pune', 'Kolkata', 'Ahmedabad'],
 }
@@ -19,22 +19,14 @@ export default function Footer() {
 
           {/* Brand */}
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
-              <div style={{
-                width: '44px', height: '44px',
-                background: 'linear-gradient(135deg, #3B2EA3, #1E1B4B)',
-                borderRadius: '14px',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontSize: '20px', fontWeight: '800', color: 'white',
-                fontFamily: 'var(--font-display)',
-                boxShadow: '0 6px 20px rgba(59, 46, 163, 0.15)'
-              }}>P</div>
-              <span style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: '26px', fontWeight: '800',
-                color: '#111827', letterSpacing: '-0.5px'
-              }}>Pro<span style={{ color: '#3B2EA3' }}>Fam</span></span>
-            </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
+            <img src="/logo.png" alt="ProFom Logo" style={{ height: '44px', borderRadius: '10px', objectFit: 'contain' }} />
+            <span style={{
+              fontFamily: 'var(--font-body)',
+              fontSize: '26px', fontWeight: '800',
+              color: '#111827', letterSpacing: '-0.5px'
+            }}>Pro<span style={{ color: '#3B2EA3' }}>Fom</span></span>
+          </div>
             <p style={{ fontSize: '15px', color: '#6B7280', lineHeight: '1.7', marginBottom: '24px', maxWidth: '280px' }}>
               India's most trusted home services platform. Connecting you with verified professionals for a seamless experience.
             </p>
@@ -153,7 +145,7 @@ export default function Footer() {
         <div style={{ height: '1px', background: '#E5E7EB', marginBottom: '28px' }} />
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
           <p style={{ fontSize: '14px', color: '#6B7280' }}>
-            © {new Date().getFullYear()} ProFam Technologies Pvt. Ltd. All rights reserved.
+            © {new Date().getFullYear()} ProFom Technologies Pvt. Ltd. All rights reserved.
           </p>
           <div style={{ display: 'flex', gap: '24px' }}>
             {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map(link => (

@@ -43,7 +43,7 @@ export default function WhyChooseUs() {
             fontSize: '13px', fontWeight: '600', color: '#3B2EA3',
             marginBottom: '16px'
           }}>
-            🏆 Why ProFam
+            🏆 Why ProFom
           </div>
           <h2 style={{
             fontFamily: 'var(--font-body)',
@@ -51,7 +51,7 @@ export default function WhyChooseUs() {
             fontWeight: '800', color: '#111827',
             lineHeight: '1.1', letterSpacing: '-1.5px', marginBottom: '16px'
           }}>
-            The <span style={{ color: '#3B2EA3' }}>ProFam Promise</span>
+            The <span style={{ color: '#3B2EA3' }}>ProFom Promise</span>
           </h2>
           <p style={{ fontSize: '17px', color: '#6B7280', maxWidth: '520px', margin: '0 auto', lineHeight: '1.6' }}>
             We don't just send someone to your home. We send the right person, at the right time, with the right tools.

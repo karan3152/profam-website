@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
+import { Modal } from 'antd'
 
 const SERVICES = [
   { slug: 'full-home-cleaning', image: '/services/full-home-cleaning.jpg', title: 'Full Home Cleaning', desc: 'Deep cleaning by trained professionals using eco-friendly products.', price: 'From ₹399', popular: true },
@@ -9,7 +10,6 @@ const SERVICES = [
   { slug: 'appliance-repair', image: '/services/appliance-repair.jpg', title: 'Appliance Repair', desc: 'Expert repair for all your household appliances.', price: 'From ₹299', popular: false },
   { slug: 'ac-services', image: '/services/ac-services.jpg', title: 'AC Services', desc: 'Servicing, gas refill, and expert AC repairs.', price: 'From ₹349', popular: true },
   { slug: 'beauty-spa', image: '/services/beauty-spa.jpg', title: 'Beauty & Spa', desc: 'Salon-grade treatments in the comfort of your home.', price: 'From ₹499', popular: false },
-  { slug: 'carpentry', image: '/services/carpentry.jpg', title: 'Carpentry', desc: 'Furniture repair and custom woodwork services.', price: 'From ₹299', popular: false },
   { slug: 'pest-control', image: '/services/pest-control.jpg', title: 'Pest Control', desc: 'Effective and safe pest elimination services.', price: 'From ₹599', popular: false },
 ]
 
@@ -57,12 +57,12 @@ export default function Services() {
                 From deep cleaning to AC repair — book any service in under 60 seconds with transparent, upfront pricing.
               </p>
             </div>
-            <a href="#download" style={{
+            <Link href="/all-services" style={{
               display: 'inline-flex', alignItems: 'center', gap: '8px',
               background: '#F5F3FF', color: '#3B2EA3',
               padding: '12px 24px', borderRadius: '10px',
               fontSize: '14px', fontWeight: '700', textDecoration: 'none',
-              border: '1px solid #C7D2FE',
+              border: '1px solid #C7D2FE', cursor: 'pointer',
               whiteSpace: 'nowrap',
               transition: 'all 0.2s ease'
             }}
@@ -70,7 +70,7 @@ export default function Services() {
               onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = '#F5F3FF'}
             >
               View All 50+ Services →
-            </a>
+            </Link>
           </div>
         </div>
 
@@ -80,7 +80,7 @@ export default function Services() {
           gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
           gap: '16px'
         }}>
-          {SERVICES.map((service, i) => (
+          {SERVICES.slice(0, 5).map((service, i) => (
             <Link
               href={`/service/${service.slug}`}
               key={service.title}

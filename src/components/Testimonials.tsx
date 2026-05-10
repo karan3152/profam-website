@@ -1,12 +1,13 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
+import { Rate } from 'antd'
 
 const TESTIMONIALS = [
-  { name: 'Priya Sharma', city: 'Mumbai', role: 'Working Professional', avatar: 'PS', rating: 5, service: 'Home Cleaning', text: 'Profam has literally changed my life. Coming home to a spotlessly clean apartment after a long day is amazing. The cleaner is so thorough and friendly.' },
-  { name: 'Arjun Mehta', city: 'Delhi', role: 'Software Engineer', avatar: 'AM', rating: 5, service: 'Electrical Repair', text: 'Called at 9 PM for a broken power socket. The Profam electrician arrived in 40 minutes, fixed it in 20. Transparent billing. Absolutely recommended!' },
+  { name: 'Priya Sharma', city: 'Mumbai', role: 'Working Professional', avatar: 'PS', rating: 5, service: 'Home Cleaning', text: 'ProFom has literally changed my life. Coming home to a spotlessly clean apartment after a long day is amazing. The cleaner is so thorough and friendly.' },
+  { name: 'Arjun Mehta', city: 'Delhi', role: 'Software Engineer', avatar: 'AM', rating: 5, service: 'Electrical Repair', text: 'Called at 9 PM for a broken power socket. The ProFom electrician arrived in 40 minutes, fixed it in 20. Transparent billing. Absolutely recommended!' },
   { name: 'Kavitha Nair', city: 'Bangalore', role: 'Homemaker', avatar: 'KN', rating: 5, service: 'Beauty & Spa', text: 'Booked a home salon for my mother\'s birthday. The beautician was so professional. Full facial, hair spa, pedicure — better than actual salons!' },
-  { name: 'Rohit Singhania', city: 'Pune', role: 'Business Owner', avatar: 'RS', rating: 5, service: 'AC Service', text: 'My AC broke in peak summer. Profam had a technician at my place within 2 hours. He serviced the unit and gave a detailed health report. Worth every rupee.' },
-  { name: 'Sunita Gupta', city: 'Hyderabad', role: 'Teacher', avatar: 'SG', rating: 5, service: 'Pest Control', text: 'Had a cockroach problem for months. Profam\'s certified team treated the entire house with pet-safe products. 3 months later — not a single cockroach!' },
+  { name: 'Rohit Singhania', city: 'Pune', role: 'Business Owner', avatar: 'RS', rating: 5, service: 'AC Service', text: 'My AC broke in peak summer. ProFom had a technician at my place within 2 hours. He serviced the unit and gave a detailed health report. Worth every rupee.' },
+  { name: 'Sunita Gupta', city: 'Hyderabad', role: 'Teacher', avatar: 'SG', rating: 5, service: 'Pest Control', text: 'Had a cockroach problem for months. ProFom\'s certified team treated the entire house with pet-safe products. 3 months later — not a single cockroach!' },
   { name: 'Deepak Verma', city: 'Chennai', role: 'Doctor', avatar: 'DV', rating: 5, service: 'Plumbing', text: 'Plumber fixed the kitchen pipe in 30 minutes with zero mess. Even spotted a potential issue in the bathroom. Proactive and skilled — exactly what you want.' },
 ]
 
@@ -92,8 +93,8 @@ export default function Testimonials() {
               <div style={{ fontSize: '16px', fontWeight: '800', color: '#111827' }}>{active.name}</div>
               <div style={{ fontSize: '13px', color: '#9CA3AF' }}>{active.role} · {active.city}</div>
             </div>
-            <div style={{ marginLeft: 'auto', display: 'flex', gap: '2px' }}>
-              {[...Array(5)].map((_, i) => <span key={i} style={{ color: '#F59E0B', fontSize: '18px' }}>★</span>)}
+            <div style={{ marginLeft: 'auto', display: 'flex' }}>
+              <Rate disabled defaultValue={active.rating} style={{ fontSize: '18px', color: '#F59E0B', margin: 0 }} />
             </div>
             <div style={{
               background: '#EEF2FF', border: '1px solid #C7D2FE',
@@ -115,41 +116,7 @@ export default function Testimonials() {
           ))}
         </div>
 
-        {/* Cards grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '20px' }}>
-          {TESTIMONIALS.map((t, i) => (
-            <div key={t.name} onClick={() => setActiveIdx(i)} style={{
-              background: '#FFFFFF', borderRadius: '18px', padding: '24px',
-              cursor: 'pointer', border: activeIdx === i ? '2px solid #3B2EA3' : '2px solid #F3F4F6',
-              boxShadow: activeIdx === i ? '0 8px 28px rgba(59,46,163,0.1)' : '0 2px 8px rgba(0,0,0,0.04)',
-              opacity: visible ? 1 : 0,
-              transform: visible ? 'none' : 'translateY(20px)',
-              transition: `all 0.5s ease ${i * 0.07}s`,
-            }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <div style={{
-                    width: '40px', height: '40px',
-                    background: 'linear-gradient(135deg, #3B2EA3, #1E1B4B)',
-                    borderRadius: '50%', display: 'flex', alignItems: 'center',
-                    justifyContent: 'center', fontSize: '12px', fontWeight: '800', color: 'white', flexShrink: 0
-                  }}>{t.avatar}</div>
-                  <div>
-                    <div style={{ fontSize: '14px', fontWeight: '700', color: '#111827' }}>{t.name}</div>
-                    <div style={{ fontSize: '11px', color: '#9CA3AF' }}>{t.city}</div>
-                  </div>
-                </div>
-                <div style={{ display: 'flex', gap: '1px' }}>
-                  {[...Array(5)].map((_, j) => <span key={j} style={{ color: '#F59E0B', fontSize: '12px' }}>★</span>)}
-                </div>
-              </div>
-              <p style={{ fontSize: '13px', color: '#6B7280', lineHeight: '1.6', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden', marginBottom: '12px' }}>
-                "{t.text}"
-              </p>
-              <div style={{ fontSize: '11px', color: '#3B2EA3', fontWeight: '700' }}>✔ {t.service}</div>
-            </div>
-          ))}
-        </div>
+        {/* Cards grid removed per user request */}
       </div>
     </section>
   )

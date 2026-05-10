@@ -1,31 +1,32 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
+import { EnvironmentOutlined, ToolOutlined, CalendarOutlined, StarOutlined, ClockCircleOutlined, RocketOutlined, HeartOutlined } from '@ant-design/icons'
 
 const STEPS = [
   {
     num: '01',
-    icon: '📍',
+    icon: <EnvironmentOutlined />,
     title: 'Enter Your Location',
     desc: 'Type your pincode or area. We\'ll show you all available services near you in real-time.',
     color: '#3B2EA3',
   },
   {
     num: '02',
-    icon: '🛠️',
+    icon: <ToolOutlined />,
     title: 'Choose a Service',
     desc: 'Browse 50+ services with transparent pricing. No hidden charges, ever.',
     color: '#1E1B4B',
   },
   {
     num: '03',
-    icon: '📅',
+    icon: <CalendarOutlined />,
     title: 'Pick a Time Slot',
     desc: 'Schedule at your convenience — same day, next day, or whenever suits you best.',
     color: '#3B2EA3',
   },
   {
     num: '04',
-    icon: '⭐',
+    icon: <StarOutlined />,
     title: 'Relax & Rate',
     desc: 'A verified professional arrives on time. After the job, rate your experience.',
     color: '#1E1B4B',
@@ -144,9 +145,9 @@ export default function HowItWorks() {
           transition: 'all 0.8s ease 0.6s'
         }}>
           {[
-            { val: '< 60s', label: 'Average booking time', icon: '⏱️' },
-            { val: '45 min', label: 'Pro arrives on average', icon: '🚀' },
-            { val: '98%', label: 'Customer satisfaction rate', icon: '💚' },
+            { val: '< 60s', label: 'Average booking time', icon: <ClockCircleOutlined /> },
+            { val: '45 min', label: 'Pro arrives on average', icon: <RocketOutlined /> },
+            { val: '98%', label: 'Customer satisfaction rate', icon: <HeartOutlined style={{ color: '#22c55e' }} /> },
           ].map(stat => (
             <div key={stat.label} style={{ textAlign: 'center' }}>
               <div style={{ fontSize: '28px', marginBottom: '8px' }}>{stat.icon}</div>

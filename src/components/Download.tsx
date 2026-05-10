@@ -123,7 +123,7 @@ export default function Download() {
               Are you a service professional?
             </h3>
             <p style={{ fontSize: '15px', color: '#6B7280', lineHeight: '1.7', marginBottom: '20px' }}>
-              Join 2,000+ pros earning more with ProFam. Set your own schedule, get paid on time, grow your client base.
+              Join 2,000+ pros earning more with ProFom. Set your own schedule, get paid on time, grow your client base.
             </p>
             <div style={{ display: 'flex', gap: '16px', marginBottom: '24px', flexWrap: 'wrap' }}>
               {['Flexible hours', 'Guaranteed pay', 'Free training'].map(f => (

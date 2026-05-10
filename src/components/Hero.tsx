@@ -1,15 +1,16 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
+import { Rate } from 'antd'
 
 const SERVICES_TICKER = ['Home Cleaning', 'Plumbing', 'Electrical', 'AC Repair', 'Beauty & Spa', 'Carpentry', 'Pest Control', 'Painting']
 
 const POPULAR_SERVICES = [
-  { icon: 'https://img.icons8.com/3d-fluency/94/vacuum-cleaner.png', name: 'Cleaning', price: '₹399' },
-  { icon: 'https://img.icons8.com/3d-fluency/94/wrench.png', name: 'Plumbing', price: '₹199' },
-  { icon: 'https://img.icons8.com/3d-fluency/94/flash-on.png', name: 'Electrical', price: '₹249' },
-  { icon: 'https://img.icons8.com/3d-fluency/94/air-conditioner.png', name: 'AC Service', price: '₹349' },
-  { icon: 'https://img.icons8.com/3d-fluency/94/lotus.png', name: 'Beauty', price: '₹499' },
-  { icon: 'https://img.icons8.com/3d-fluency/94/bug.png', name: 'Pest Control', price: '₹599' },
+  { icon: '/services/full-home-cleaning.jpg', name: 'Cleaning', price: '₹399' },
+  { icon: '/services/bathroom-cleaning.jpg', name: 'Bathroom', price: '₹199' },
+  { icon: '/services/appliance-repair.jpg', name: 'Repair', price: '₹249' },
+  { icon: '/services/ac-services.jpg', name: 'AC Service', price: '₹349' },
+  { icon: '/services/beauty-spa.jpg', name: 'Beauty', price: '₹499' },
+  { icon: '/services/pest-control.jpg', name: 'Pest Control', price: '₹599' },
 ]
 
 export default function Hero() {
@@ -175,9 +176,10 @@ export default function Hero() {
             }}>
               <div style={{
                 width: '52px', height: '52px', borderRadius: '14px',
-                background: '#EEF2FF', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0
+                background: '#EEF2FF', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+                overflow: 'hidden'
               }}>
-                <img src="https://img.icons8.com/3d-fluency/94/vacuum-cleaner.png" alt="" style={{ width: '32px' }} />
+                <img src="/services/full-home-cleaning.jpg" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
               <div style={{ flex: 1 }}>
                 <div style={{ fontSize: '13px', color: '#9CA3AF', marginBottom: '2px' }}>Confirmed booking</div>
@@ -214,7 +216,9 @@ export default function Hero() {
                       ;(e.currentTarget as HTMLElement).style.borderColor = '#F3F4F6'
                     }}
                   >
-                    <img src={s.icon} alt="" style={{ width: '32px', height: '32px', objectFit: 'contain', marginBottom: '6px' }} />
+                    <div style={{ width: '100%', aspectRatio: '1', borderRadius: '8px', overflow: 'hidden', marginBottom: '8px' }}>
+                      <img src={s.icon} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    </div>
                     <div style={{ fontSize: '11px', fontWeight: '700', color: '#374151' }}>{s.name}</div>
                     <div style={{ fontSize: '10px', color: '#3B2EA3', fontWeight: '600', marginTop: '2px' }}>{s.price}</div>
                   </div>
@@ -231,7 +235,9 @@ export default function Hero() {
             }}>
               <div>
                 <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.6)', marginBottom: '4px' }}>Customer Satisfaction</div>
-                <div style={{ fontSize: '28px', fontWeight: '800', color: '#FFFFFF', lineHeight: '1' }}>4.9 ★</div>
+                <div style={{ fontSize: '28px', fontWeight: '800', color: '#FFFFFF', lineHeight: '1', display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  4.9 <Rate disabled allowHalf defaultValue={4.9} style={{ fontSize: '20px', color: '#FBBF24', margin: 0 }} />
+                </div>
                 <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', marginTop: '4px' }}>74,712 ratings</div>
               </div>
               <div style={{ textAlign: 'right' }}>

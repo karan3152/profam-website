@@ -24,28 +24,21 @@ export default function Navbar() {
         
         {/* Logo */}
         <a href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
-          <div style={{
-            width: '40px', height: '40px',
-            background: 'linear-gradient(135deg, #3B2EA3, #1E1B4B)',
-            borderRadius: '10px',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: '20px', fontWeight: '800', color: 'white',
-            fontFamily: 'var(--font-display)',
-          }}>P</div>
+          <img src="/logo.png" alt="ProFom Logo" style={{ height: '40px', borderRadius: '10px', objectFit: 'contain' }} />
           <span style={{
             fontFamily: 'var(--font-body)',
             fontSize: '22px', fontWeight: '800',
             color: '#111827', letterSpacing: '-0.5px'
-          }}>Pro<span style={{ color: '#3B2EA3' }}>Fam</span></span>
+          }}>Pro<span style={{ color: '#3B2EA3' }}>Fom</span></span>
         </a>
 
         {/* Center Nav */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }} className="hidden-mobile">
           {[
-            { label: 'Services', href: '#services' },
-            { label: 'How It Works', href: '#how-it-works' },
-            { label: 'About Us', href: '#why-choose-us' },
-            { label: 'Reviews', href: '#testimonials' },
+            { label: 'Services', href: '/#services' },
+            { label: 'How It Works', href: '/#how-it-works' },
+            { label: 'About Us', href: '/#why-choose-us' },
+            { label: 'Reviews', href: '/#testimonials' },
           ].map(link => (
             <a key={link.label} href={link.href} style={{
               color: '#4B5563', fontSize: '15px', fontWeight: '500',
@@ -73,7 +66,7 @@ export default function Navbar() {
           }} className="hidden-mobile">
             <span style={{ fontSize: '16px' }}>📞</span> 1800-000-0000
           </a>
-          <a href="#download" style={{
+          <a href="/#download" style={{
             background: 'linear-gradient(135deg, #3B2EA3, #1E1B4B)',
             color: 'white', padding: '10px 22px', borderRadius: '8px',
             fontSize: '14px', fontWeight: '700', textDecoration: 'none',
@@ -102,14 +95,19 @@ export default function Navbar() {
           background: '#FFFFFF', borderTop: '1px solid #F3F4F6',
           padding: '16px 32px 24px', display: 'flex', flexDirection: 'column', gap: '4px'
         }}>
-          {['Services', 'How It Works', 'About Us', 'Reviews'].map(link => (
-            <a key={link} href={`#${link.toLowerCase().replace(/\s+/g, '-')}`}
+          {[
+            { label: 'Services', href: '/#services' },
+            { label: 'How It Works', href: '/#how-it-works' },
+            { label: 'About Us', href: '/#why-choose-us' },
+            { label: 'Reviews', href: '/#testimonials' },
+          ].map(link => (
+            <a key={link.label} href={link.href}
               onClick={() => setMenuOpen(false)}
               style={{ color: '#374151', fontSize: '16px', fontWeight: '500', textDecoration: 'none', padding: '12px 0', borderBottom: '1px solid #F9FAFB' }}>
-              {link}
+              {link.label}
             </a>
           ))}
-          <a href="#download" style={{ background: 'linear-gradient(135deg, #3B2EA3, #1E1B4B)', color: 'white', padding: '14px', borderRadius: '10px', fontSize: '15px', fontWeight: '700', textDecoration: 'none', textAlign: 'center', marginTop: '12px' }}>
+          <a href="/#download" style={{ background: 'linear-gradient(135deg, #3B2EA3, #1E1B4B)', color: 'white', padding: '14px', borderRadius: '10px', fontSize: '15px', fontWeight: '700', textDecoration: 'none', textAlign: 'center', marginTop: '12px' }}>
             Book a Service
           </a>
         </div>

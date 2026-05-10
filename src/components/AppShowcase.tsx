@@ -67,7 +67,7 @@ const APP_SCREENS = [
   },
   {
     title: 'Easy Payments',
-    desc: 'Pay securely with UPI, cards, or Profam wallet. Split, save, and earn cashback.',
+    desc: 'Pay securely with UPI, cards, or ProFom wallet. Split, save, and earn cashback.',
     tag: 'Payment',
     color: '#3B2EA3',
     content: (
@@ -91,7 +91,7 @@ const APP_SCREENS = [
         {[
           { icon: 'https://img.icons8.com/3d-fluency/94/bank-building.png', text: 'Pay via UPI' },
           { icon: 'https://img.icons8.com/3d-fluency/94/bank-cards.png', text: 'Credit/Debit Card' },
-          { icon: 'https://img.icons8.com/3d-fluency/94/wallet.png', text: 'Profam Wallet (₹200)' }
+          { icon: 'https://img.icons8.com/3d-fluency/94/wallet.png', text: 'ProFom Wallet (₹200)' }
         ].map((m, i) => (
           <div key={i} style={{ background: i === 2 ? '#EEF2FF' : '#FFFFFF', border: `1px solid ${i === 2 ? '#C7D2FE' : '#F3F4F6'}`, borderRadius: '10px', padding: '10px 12px', marginBottom: '8px', fontSize: '11px', color: '#4B5563', cursor: 'pointer', fontWeight: i === 2 ? '700' : '600', display: 'flex', alignItems: 'center', gap: '8px' }}>
             <img src={m.icon} alt="" style={{ width: '16px', height: '16px' }} /> {m.text}
@@ -165,7 +165,7 @@ export default function AppShowcase() {
                     borderBottom: '1px solid #F3F4F6',
                     display: 'flex', justifyContent: 'space-between', alignItems: 'center',
                   }}>
-                    <div style={{ fontWeight: '800', fontSize: '15px', color: '#111827', fontFamily: 'var(--font-body)', letterSpacing: '-0.3px' }}>ProFam</div>
+                    <div style={{ fontWeight: '800', fontSize: '15px', color: '#111827', fontFamily: 'var(--font-body)', letterSpacing: '-0.3px' }}>ProFom</div>
                     <div style={{ width: '32px', height: '32px', background: '#F3F4F6', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       <img src="https://img.icons8.com/3d-fluency/94/bell.png" alt="" style={{width: '18px'}} />
                     </div>
@@ -208,7 +208,7 @@ export default function AppShowcase() {
               fontSize: '13px', fontWeight: '600', color: '#3B2EA3',
               marginBottom: '16px'
             }}>
-              📱 The ProFam App
+              📱 The ProFom App
             </div>
             <h2 style={{
               fontFamily: 'var(--font-body)',
