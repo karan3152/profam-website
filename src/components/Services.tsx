@@ -1,15 +1,16 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
+import Link from 'next/link'
 
 const SERVICES = [
-  { image: 'https://img.icons8.com/3d-fluency/188/vacuum-cleaner.png', title: 'Full Home Cleaning', desc: 'Deep cleaning by trained professionals using eco-friendly products.', price: 'From ₹399', popular: true },
-  { image: 'https://img.icons8.com/3d-fluency/188/bathtub.png', title: 'Bathroom Cleaning', desc: 'Sparkling clean bathrooms with specialized disinfectants.', price: 'From ₹199', popular: false },
-  { image: 'https://img.icons8.com/3d-fluency/188/fridge.png', title: 'Fridge Cleaning', desc: 'Hygienic cleaning for your refrigerator and freezer.', price: 'From ₹149', popular: false },
-  { image: 'https://img.icons8.com/3d-fluency/188/washing-machine.png', title: 'Appliance Repair', desc: 'Expert repair for all your household appliances.', price: 'From ₹299', popular: false },
-  { image: 'https://img.icons8.com/3d-fluency/188/air-conditioner.png', title: 'AC Services', desc: 'Servicing, gas refill, and expert AC repairs.', price: 'From ₹349', popular: true },
-  { image: 'https://img.icons8.com/3d-fluency/188/lotus.png', title: 'Beauty & Spa', desc: 'Salon-grade treatments in the comfort of your home.', price: 'From ₹499', popular: false },
-  { image: 'https://img.icons8.com/3d-fluency/188/hammer.png', title: 'Carpentry', desc: 'Furniture repair and custom woodwork services.', price: 'From ₹299', popular: false },
-  { image: 'https://img.icons8.com/3d-fluency/188/bug.png', title: 'Pest Control', desc: 'Effective and safe pest elimination services.', price: 'From ₹599', popular: false },
+  { slug: 'full-home-cleaning', image: '/services/full-home-cleaning.jpg', title: 'Full Home Cleaning', desc: 'Deep cleaning by trained professionals using eco-friendly products.', price: 'From ₹399', popular: true },
+  { slug: 'bathroom-cleaning', image: '/services/bathroom-cleaning.jpg', title: 'Bathroom Cleaning', desc: 'Sparkling clean bathrooms with specialized disinfectants.', price: 'From ₹199', popular: false },
+  { slug: 'fridge-cleaning', image: '/services/fridge-cleaning.jpg', title: 'Fridge Cleaning', desc: 'Hygienic cleaning for your refrigerator and freezer.', price: 'From ₹149', popular: false },
+  { slug: 'appliance-repair', image: '/services/appliance-repair.jpg', title: 'Appliance Repair', desc: 'Expert repair for all your household appliances.', price: 'From ₹299', popular: false },
+  { slug: 'ac-services', image: '/services/ac-services.jpg', title: 'AC Services', desc: 'Servicing, gas refill, and expert AC repairs.', price: 'From ₹349', popular: true },
+  { slug: 'beauty-spa', image: '/services/beauty-spa.jpg', title: 'Beauty & Spa', desc: 'Salon-grade treatments in the comfort of your home.', price: 'From ₹499', popular: false },
+  { slug: 'carpentry', image: '/services/carpentry.jpg', title: 'Carpentry', desc: 'Furniture repair and custom woodwork services.', price: 'From ₹299', popular: false },
+  { slug: 'pest-control', image: '/services/pest-control.jpg', title: 'Pest Control', desc: 'Effective and safe pest elimination services.', price: 'From ₹599', popular: false },
 ]
 
 export default function Services() {
@@ -80,11 +81,14 @@ export default function Services() {
           gap: '16px'
         }}>
           {SERVICES.map((service, i) => (
-            <div
+            <Link
+              href={`/service/${service.slug}`}
               key={service.title}
               onMouseEnter={() => setHoveredIdx(i)}
               onMouseLeave={() => setHoveredIdx(null)}
               style={{
+                textDecoration: 'none',
+                color: 'inherit',
                 background: '#FFFFFF',
                 borderRadius: '20px',
                 padding: '12px',
@@ -117,7 +121,7 @@ export default function Services() {
                 overflow: 'hidden', transition: 'background 0.3s ease'
               }}>
                 <img src={service.image} alt={service.title} style={{
-                  width: '80%', height: '80%', objectFit: 'contain',
+                  width: '100%', height: '100%', objectFit: 'cover',
                   transform: hoveredIdx === i ? 'scale(1.08)' : 'scale(1)',
                   transition: 'transform 0.4s ease'
                 }} />
@@ -138,7 +142,7 @@ export default function Services() {
                   }}>→</span>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 
